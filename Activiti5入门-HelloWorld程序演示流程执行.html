@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Activiti5入门,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="通过学习上一篇的内容，我们已经完成了项目的初始化。Activiti流程引擎所需要的23张数据表已经在数据库中创建成功，在这一篇中，我们将通过HelloWorld示例模拟流程的运行过程，初步体会流程的执行过程和框架核心API的使用。 本篇将分为两个部分，第一部分是绘制流程图，第二部分通过代码模拟一个完整流程的运行过程。 绘制流程图创建bpmn文件继续上一篇创建的工程，选中项目src/main/res">
+<meta name="keywords" content="Activiti5入门">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Activiti5入门--HelloWorld程序演示流程执行">
+<meta property="og:url" content="http://codingshenzx.cn/Activiti5入门-HelloWorld程序演示流程执行.html">
+<meta property="og:site_name" content="codingShenZx&#39;s Blog">
+<meta property="og:description" content="通过学习上一篇的内容，我们已经完成了项目的初始化。Activiti流程引擎所需要的23张数据表已经在数据库中创建成功，在这一篇中，我们将通过HelloWorld示例模拟流程的运行过程，初步体会流程的执行过程和框架核心API的使用。 本篇将分为两个部分，第一部分是绘制流程图，第二部分通过代码模拟一个完整流程的运行过程。 绘制流程图创建bpmn文件继续上一篇创建的工程，选中项目src/main/res">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/activiti%E9%9D%A2%E6%9D%BF.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/properties%E9%9D%A2%E6%9D%BF.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E7%94%A8%E6%88%B7%E4%BB%BB%E5%8A%A1%E9%85%8D%E7%BD%AE.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/helloworld.png">
+<meta property="og:updated_time" content="2019-12-17T12:06:08.591Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Activiti5入门--HelloWorld程序演示流程执行">
+<meta name="twitter:description" content="通过学习上一篇的内容，我们已经完成了项目的初始化。Activiti流程引擎所需要的23张数据表已经在数据库中创建成功，在这一篇中，我们将通过HelloWorld示例模拟流程的运行过程，初步体会流程的执行过程和框架核心API的使用。 本篇将分为两个部分，第一部分是绘制流程图，第二部分通过代码模拟一个完整流程的运行过程。 绘制流程图创建bpmn文件继续上一篇创建的工程，选中项目src/main/res">
+<meta name="twitter:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/activiti%E9%9D%A2%E6%9D%BF.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://codingshenzx.cn/Activiti5入门-HelloWorld程序演示流程执行.html">
+
+
+
+
+
+  <title>Activiti5入门--HelloWorld程序演示流程执行 | codingShenZx's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">codingShenZx's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://codingshenzx.cn/Activiti5入门-HelloWorld程序演示流程执行.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="codingShenZx">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="codingShenZx's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Activiti5入门--HelloWorld程序演示流程执行</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-06-28T21:28:39+08:00">
+                2018-06-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Activiti5/" itemprop="url" rel="index">
+                    <span itemprop="name">Activiti5</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  2.7k字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  11分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>通过学习上一篇的内容，我们已经完成了项目的初始化。Activiti流程引擎所需要的23张数据表已经在数据库中创建成功，在这一篇中，我们将通过<em>HelloWorld</em>示例模拟流程的运行过程，初步体会流程的执行过程和框架核心API的使用。</p>
+<p>本篇将分为两个部分，第一部分是绘制流程图，第二部分通过代码模拟一个完整流程的运行过程。</p>
+<h3 id="绘制流程图"><a href="#绘制流程图" class="headerlink" title="绘制流程图"></a>绘制流程图</h3><h4 id="创建bpmn文件"><a href="#创建bpmn文件" class="headerlink" title="创建bpmn文件"></a>创建bpmn文件</h4><p>继续上一篇创建的工程，选中项目<code>src/main/resources</code>目录下的包<em>diagrams</em>，右键<em>New</em>-&gt;<em>Other…</em>-&gt;<em>Activiti</em>,选择创建<em>Activiti Diagram</em>，将文件命名为<em>helloworld</em>，然后，按照一般步骤点击直到结束。</p>
+<p>这样我们就创建好了一个<em>helloworld.bpmn</em>文件。</p>
+<h4 id="绘制流程"><a href="#绘制流程" class="headerlink" title="绘制流程"></a>绘制流程</h4><p>打开<em>helloworld.bpmn</em>文件，可以在IDE右侧看到如下面板，遵循如下步骤创建流程图</p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/activiti%E9%9D%A2%E6%9D%BF.png" alt="Activiti面板"></p>
+<ol>
+<li><p>拖拽<em>Start event</em>下的<em>StartEvent</em>，创建开始节点</p>
+</li>
+<li><p>拖拽<em>End event</em>下的<em>EndEvent</em>，创建结束节点</p>
+</li>
+<li><p>拖拽<em>Task</em>下的<em>UserTask</em>，创建任务节点</p>
+</li>
+<li><p>选择IDE顶部菜单<em>Window</em>-&gt;<em>Show View</em>-&gt;<em>Properties</em>，此时会打开一个界面，这个界面有助于我们编辑这些节点的属性,对于不同节点，<em>Properties</em>面板里的内容会有一定的差异，这是未选中节点时流程图的<em>全局Propertis配置项</em>界面</p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/properties%E9%9D%A2%E6%9D%BF.png" alt="properties面板"></p>
+</li>
+<li><p>选择任务节点时的界面</p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E7%94%A8%E6%88%B7%E4%BB%BB%E5%8A%A1%E9%85%8D%E7%BD%AE.png" alt="任务节点配置"></p>
+</li>
+<li><p>编辑任务节点，设置任务节点名称</p>
+<ul>
+<li>选择刚才创建的任务节点，将Name改为<em>提交申请</em>；</li>
+<li>再创建一个任务节点，将Name改为<em>审批【部门经理】</em></li>
+<li>最后创建一个任务节点，将Name改为<em>审批【总经理】</em></li>
+</ul>
+</li>
+<li><p>找到右侧Activiti面板里<em>Connection</em>-&gt;<em>SequenceFlow</em>，将各个节点从开始节点到结束节点依次连接起来，如下图所示</p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/helloworld.png" alt="流程图"></p>
+</li>
+<li><p>编辑任务节点，设置每个任务节点的办理人，在Properties界面里的<em>Main config</em>-&gt;<em>Assignee</em>里设置</p>
+<ul>
+<li>提交申请任务节点的<em>Assignee</em>为张三</li>
+<li>审批【部门经理】任务节点的<em>Assignee</em>为李四</li>
+<li>审批【总经理】任务节点的<em>Assignee</em>为王五</li>
+</ul>
+</li>
+<li><p>点击空白处，此时出现<em>全局Propertis配置项</em>界面</p>
+<ul>
+<li>设置<em>Process</em>-&gt;<em>Id</em>为<em>helloworld</em></li>
+<li>设置<em>Process</em>-&gt;<em>Name</em>为<em>helloworldProcess</em></li>
+</ul>
+</li>
+<li><p>点击保存，即会生成对应流程图的图片文件</p>
+</li>
+</ol>
+<p>使用XML方式打开bpmn文件，可以看到如下代码</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">definitions</span> <span class="attr">xmlns</span>=<span class="string">"http://www.omg.org/spec/BPMN/20100524/MODEL"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="attr">xmlns:xsd</span>=<span class="string">"http://www.w3.org/2001/XMLSchema"</span> <span class="attr">xmlns:activiti</span>=<span class="string">"http://activiti.org/bpmn"</span> <span class="attr">xmlns:bpmndi</span>=<span class="string">"http://www.omg.org/spec/BPMN/20100524/DI"</span> <span class="attr">xmlns:omgdc</span>=<span class="string">"http://www.omg.org/spec/DD/20100524/DC"</span> <span class="attr">xmlns:omgdi</span>=<span class="string">"http://www.omg.org/spec/DD/20100524/DI"</span> <span class="attr">typeLanguage</span>=<span class="string">"http://www.w3.org/2001/XMLSchema"</span> <span class="attr">expressionLanguage</span>=<span class="string">"http://www.w3.org/1999/XPath"</span> <span class="attr">targetNamespace</span>=<span class="string">"http://www.activiti.org/test"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">process</span> <span class="attr">id</span>=<span class="string">"helloworld"</span> <span class="attr">name</span>=<span class="string">"helloworldProcess"</span> <span class="attr">isExecutable</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">startEvent</span> <span class="attr">id</span>=<span class="string">"startevent1"</span> <span class="attr">name</span>=<span class="string">"Start"</span>&gt;</span><span class="tag">&lt;/<span class="name">startEvent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">endEvent</span> <span class="attr">id</span>=<span class="string">"endevent1"</span> <span class="attr">name</span>=<span class="string">"End"</span>&gt;</span><span class="tag">&lt;/<span class="name">endEvent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">userTask</span> <span class="attr">id</span>=<span class="string">"usertask1"</span> <span class="attr">name</span>=<span class="string">"提交申请"</span> <span class="attr">activiti:assignee</span>=<span class="string">"张三"</span>&gt;</span><span class="tag">&lt;/<span class="name">userTask</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">userTask</span> <span class="attr">id</span>=<span class="string">"usertask2"</span> <span class="attr">name</span>=<span class="string">"审批【部门经理】"</span> <span class="attr">activiti:assignee</span>=<span class="string">"李四"</span>&gt;</span><span class="tag">&lt;/<span class="name">userTask</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">userTask</span> <span class="attr">id</span>=<span class="string">"usertask3"</span> <span class="attr">name</span>=<span class="string">"审批【总经理】"</span> <span class="attr">activiti:assignee</span>=<span class="string">"王五"</span>&gt;</span><span class="tag">&lt;/<span class="name">userTask</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sequenceFlow</span> <span class="attr">id</span>=<span class="string">"flow1"</span> <span class="attr">sourceRef</span>=<span class="string">"startevent1"</span> <span class="attr">targetRef</span>=<span class="string">"usertask1"</span>&gt;</span><span class="tag">&lt;/<span class="name">sequenceFlow</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sequenceFlow</span> <span class="attr">id</span>=<span class="string">"flow2"</span> <span class="attr">sourceRef</span>=<span class="string">"usertask1"</span> <span class="attr">targetRef</span>=<span class="string">"usertask2"</span>&gt;</span><span class="tag">&lt;/<span class="name">sequenceFlow</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sequenceFlow</span> <span class="attr">id</span>=<span class="string">"flow3"</span> <span class="attr">sourceRef</span>=<span class="string">"usertask2"</span> <span class="attr">targetRef</span>=<span class="string">"usertask3"</span>&gt;</span><span class="tag">&lt;/<span class="name">sequenceFlow</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sequenceFlow</span> <span class="attr">id</span>=<span class="string">"flow4"</span> <span class="attr">sourceRef</span>=<span class="string">"usertask3"</span> <span class="attr">targetRef</span>=<span class="string">"endevent1"</span>&gt;</span><span class="tag">&lt;/<span class="name">sequenceFlow</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">process</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">bpmndi:BPMNDiagram</span> <span class="attr">id</span>=<span class="string">"BPMNDiagram_helloworld"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bpmndi:BPMNPlane</span> <span class="attr">bpmnElement</span>=<span class="string">"helloworld"</span> <span class="attr">id</span>=<span class="string">"BPMNPlane_helloworld"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmndi:BPMNShape</span> <span class="attr">bpmnElement</span>=<span class="string">"startevent1"</span> <span class="attr">id</span>=<span class="string">"BPMNShape_startevent1"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">omgdc:Bounds</span> <span class="attr">height</span>=<span class="string">"35.0"</span> <span class="attr">width</span>=<span class="string">"35.0"</span> <span class="attr">x</span>=<span class="string">"390.0"</span> <span class="attr">y</span>=<span class="string">"50.0"</span>&gt;</span><span class="tag">&lt;/<span class="name">omgdc:Bounds</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNShape</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmndi:BPMNShape</span> <span class="attr">bpmnElement</span>=<span class="string">"endevent1"</span> <span class="attr">id</span>=<span class="string">"BPMNShape_endevent1"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">omgdc:Bounds</span> <span class="attr">height</span>=<span class="string">"35.0"</span> <span class="attr">width</span>=<span class="string">"35.0"</span> <span class="attr">x</span>=<span class="string">"390.0"</span> <span class="attr">y</span>=<span class="string">"380.0"</span>&gt;</span><span class="tag">&lt;/<span class="name">omgdc:Bounds</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNShape</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmndi:BPMNShape</span> <span class="attr">bpmnElement</span>=<span class="string">"usertask1"</span> <span class="attr">id</span>=<span class="string">"BPMNShape_usertask1"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">omgdc:Bounds</span> <span class="attr">height</span>=<span class="string">"55.0"</span> <span class="attr">width</span>=<span class="string">"105.0"</span> <span class="attr">x</span>=<span class="string">"355.0"</span> <span class="attr">y</span>=<span class="string">"120.0"</span>&gt;</span><span class="tag">&lt;/<span class="name">omgdc:Bounds</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNShape</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmndi:BPMNShape</span> <span class="attr">bpmnElement</span>=<span class="string">"usertask2"</span> <span class="attr">id</span>=<span class="string">"BPMNShape_usertask2"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">omgdc:Bounds</span> <span class="attr">height</span>=<span class="string">"55.0"</span> <span class="attr">width</span>=<span class="string">"105.0"</span> <span class="attr">x</span>=<span class="string">"355.0"</span> <span class="attr">y</span>=<span class="string">"200.0"</span>&gt;</span><span class="tag">&lt;/<span class="name">omgdc:Bounds</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNShape</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmndi:BPMNShape</span> <span class="attr">bpmnElement</span>=<span class="string">"usertask3"</span> <span class="attr">id</span>=<span class="string">"BPMNShape_usertask3"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">omgdc:Bounds</span> <span class="attr">height</span>=<span class="string">"55.0"</span> <span class="attr">width</span>=<span class="string">"105.0"</span> <span class="attr">x</span>=<span class="string">"355.0"</span> <span class="attr">y</span>=<span class="string">"290.0"</span>&gt;</span><span class="tag">&lt;/<span class="name">omgdc:Bounds</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNShape</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmndi:BPMNEdge</span> <span class="attr">bpmnElement</span>=<span class="string">"flow1"</span> <span class="attr">id</span>=<span class="string">"BPMNEdge_flow1"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">omgdi:waypoint</span> <span class="attr">x</span>=<span class="string">"407.0"</span> <span class="attr">y</span>=<span class="string">"85.0"</span>&gt;</span><span class="tag">&lt;/<span class="name">omgdi:waypoint</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">omgdi:waypoint</span> <span class="attr">x</span>=<span class="string">"407.0"</span> <span class="attr">y</span>=<span class="string">"120.0"</span>&gt;</span><span class="tag">&lt;/<span class="name">omgdi:waypoint</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNEdge</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmndi:BPMNEdge</span> <span class="attr">bpmnElement</span>=<span class="string">"flow2"</span> <span class="attr">id</span>=<span class="string">"BPMNEdge_flow2"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">omgdi:waypoint</span> <span class="attr">x</span>=<span class="string">"407.0"</span> <span class="attr">y</span>=<span class="string">"175.0"</span>&gt;</span><span class="tag">&lt;/<span class="name">omgdi:waypoint</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">omgdi:waypoint</span> <span class="attr">x</span>=<span class="string">"407.0"</span> <span class="attr">y</span>=<span class="string">"200.0"</span>&gt;</span><span class="tag">&lt;/<span class="name">omgdi:waypoint</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNEdge</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmndi:BPMNEdge</span> <span class="attr">bpmnElement</span>=<span class="string">"flow3"</span> <span class="attr">id</span>=<span class="string">"BPMNEdge_flow3"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">omgdi:waypoint</span> <span class="attr">x</span>=<span class="string">"407.0"</span> <span class="attr">y</span>=<span class="string">"255.0"</span>&gt;</span><span class="tag">&lt;/<span class="name">omgdi:waypoint</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">omgdi:waypoint</span> <span class="attr">x</span>=<span class="string">"407.0"</span> <span class="attr">y</span>=<span class="string">"290.0"</span>&gt;</span><span class="tag">&lt;/<span class="name">omgdi:waypoint</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNEdge</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmndi:BPMNEdge</span> <span class="attr">bpmnElement</span>=<span class="string">"flow4"</span> <span class="attr">id</span>=<span class="string">"BPMNEdge_flow4"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">omgdi:waypoint</span> <span class="attr">x</span>=<span class="string">"407.0"</span> <span class="attr">y</span>=<span class="string">"345.0"</span>&gt;</span><span class="tag">&lt;/<span class="name">omgdi:waypoint</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">omgdi:waypoint</span> <span class="attr">x</span>=<span class="string">"407.0"</span> <span class="attr">y</span>=<span class="string">"380.0"</span>&gt;</span><span class="tag">&lt;/<span class="name">omgdi:waypoint</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNEdge</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bpmndi:BPMNPlane</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">bpmndi:BPMNDiagram</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">definitions</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>可以看到，该<em>XML</em>代码描述的过程和<em>bpmn</em>文件所图示的内容是一致的</p>
+<h3 id="模拟流程执行"><a href="#模拟流程执行" class="headerlink" title="模拟流程执行"></a>模拟流程执行</h3><p>在绘画完流程图后，此时，可以写代码模拟流程运行了。在<code>src/main/java</code>下新建包<code>cn.demo.helloworld</code>，并创建类<em>HelloWorld</em></p>
+<p>该流程执行的主要步骤有</p>
+<ol>
+<li>部署流程定义</li>
+<li>启动流程实例</li>
+<li>查询当前人的个人任务</li>
+<li>完成个人的任务</li>
+</ol>
+<p>下面来看一下这些步骤的相关代码</p>
+<h4 id="部署流程定义"><a href="#部署流程定义" class="headerlink" title="部署流程定义"></a>部署流程定义</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 部署流程定义</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deploymentProcessDefinition</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 存在于act_re_deployment表</span></span><br><span class="line">	Deployment deploy = processEngine.getRepositoryService() <span class="comment">// 与流程定义和部署对象相关的Service</span></span><br><span class="line">			.createDeployment() <span class="comment">// 创建一个部署对象</span></span><br><span class="line">			.name(<span class="string">"helloworld入门程序"</span>) <span class="comment">// 添加部署的名称</span></span><br><span class="line">			.addClasspathResource(<span class="string">"diagrams/helloworld.bpmn"</span>) <span class="comment">// 从classpath的资源中加载，一次只能加载一个文件</span></span><br><span class="line">			.addClasspathResource(<span class="string">"diagrams/helloworld.png"</span>).deploy(); <span class="comment">// 完成部署</span></span><br><span class="line">	System.out.println(<span class="string">"部署ID: "</span> + deploy.getId());</span><br><span class="line">	System.out.println(<span class="string">"部署名称: "</span> + deploy.getName());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>对于一个流程来说，首先需要做的就是部署流程定义，而流程部署和定义需要使用<em>repositoryService</em>，通过该服务，我们可以获得一个部署对象，获取流程定义相关信息</p>
+<h4 id="启动流程实例"><a href="#启动流程实例" class="headerlink" title="启动流程实例"></a>启动流程实例</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 启动流程实例</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startProcessInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 流程定义的key</span></span><br><span class="line">	String processDefinitionKey = <span class="string">"helloworld"</span>;</span><br><span class="line">	ProcessInstance processInstance = processEngine.getRuntimeService() <span class="comment">// 与正在执行的流程实例和执行对象相关的Service</span></span><br><span class="line">			.startProcessInstanceByKey(processDefinitionKey); <span class="comment">// 使用流程定义的key启动实例，key对应helloworld.bpmn文件中Id的属性值,默认是按照最新版本的流程定义启动</span></span><br><span class="line">	System.out.println(<span class="string">"流程实例ID: "</span> + processInstance.getId()); <span class="comment">// 流程实例Id</span></span><br><span class="line"><span class="comment">// 对应act_ru_execution表中的ID</span></span><br><span class="line"><span class="comment">// 101</span></span><br><span class="line">	System.out.println(<span class="string">"流程定义ID: "</span> + processInstance.getProcessDefinitionId()); <span class="comment">// 流程定义Id</span></span><br><span class="line"><span class="comment">// 对应act_re_procdef表中的ID 														/ 	  // helloworld:1:4</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>部署完流程之后，就可以使用<em>runtimeService</em>启动一个具体流程实例</p>
+<h4 id="查询当前人的个人任务"><a href="#查询当前人的个人任务" class="headerlink" title="查询当前人的个人任务"></a>查询当前人的个人任务</h4><p>流程在不断的执行，当流程执行到当前人的时候，就可以查询到当前人的个人任务</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 查询当前人的个人任务</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findMyPersonalTask</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		String assignee = <span class="string">"张三"</span>;</span><br><span class="line">		List&lt;Task&gt; list = processEngine.getTaskService() <span class="comment">// 与正在执行的任务管理相关的Service</span></span><br><span class="line">				.createTaskQuery() <span class="comment">// 创建任务对象</span></span><br><span class="line">				.taskAssignee(assignee) <span class="comment">// 指定个人任务,指定办理人</span></span><br><span class="line">				.list();</span><br><span class="line">		<span class="comment">// 存储在act_ru_task表</span></span><br><span class="line">		<span class="keyword">if</span> (list != <span class="keyword">null</span> &amp;&amp; list.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">for</span> (Task task : list) &#123;</span><br><span class="line">				System.out.println(<span class="string">"任务ID: "</span> + task.getId());</span><br><span class="line">				System.out.println(<span class="string">"任务名称: "</span> + task.getName());</span><br><span class="line">				System.out.println(<span class="string">"任务的创建时间: "</span> + task.getCreateTime());</span><br><span class="line">				System.out.println(<span class="string">"任务的办理人: "</span> + task.getAssignee());</span><br><span class="line">				System.out.println(<span class="string">"流程实例ID: "</span> + task.getProcessInstanceId());</span><br><span class="line">				System.out.println(<span class="string">"执行对象ID: "</span> + task.getExecutionId());</span><br><span class="line">				System.out.println(<span class="string">"流程定义ID: "</span> + task.getProcessDefinitionId());</span><br><span class="line">				System.out.println(<span class="string">"#######################################"</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="完成个人的任务"><a href="#完成个人的任务" class="headerlink" title="完成个人的任务"></a>完成个人的任务</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 完成我的任务</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">completeMyPersonalTask</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	String taskId = <span class="string">"104"</span>;</span><br><span class="line">	processEngine.getTaskService().complete(taskId);</span><br><span class="line">	System.out.println(<span class="string">"完成任务：任务Id："</span> + taskId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当我们查询到当前我们有任务时，可以对该任务进行处理。当处理完毕之后，流程就执行到下一步了。当流程全部步骤执行完成后，会存储到历史表中</p>
+<h4 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.demo.helloworld;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.activiti.engine.ProcessEngine;</span><br><span class="line"><span class="keyword">import</span> org.activiti.engine.ProcessEngines;</span><br><span class="line"><span class="keyword">import</span> org.activiti.engine.repository.Deployment;</span><br><span class="line"><span class="keyword">import</span> org.activiti.engine.runtime.ProcessInstance;</span><br><span class="line"><span class="keyword">import</span> org.activiti.engine.task.Task;</span><br><span class="line"><span class="keyword">import</span> org.junit.Test;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HelloWorld</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// 获取流程引擎</span></span><br><span class="line">	ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 部署流程定义</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deploymentProcessDefinition</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 存在于act_re_deployment表</span></span><br><span class="line">		Deployment deploy = processEngine.getRepositoryService() <span class="comment">// 与流程定义和部署对象相关的Service</span></span><br><span class="line">				.createDeployment() <span class="comment">// 创建一个部署对象</span></span><br><span class="line">				.name(<span class="string">"helloworld入门程序"</span>) <span class="comment">// 添加部署的名称</span></span><br><span class="line">				.addClasspathResource(<span class="string">"diagrams/helloworld.bpmn"</span>) <span class="comment">// 从classpath的资源中加载，一次只能加载一个文件</span></span><br><span class="line">				.addClasspathResource(<span class="string">"diagrams/helloworld.png"</span>).deploy(); <span class="comment">// 完成部署</span></span><br><span class="line">		System.out.println(<span class="string">"部署ID: "</span> + deploy.getId());</span><br><span class="line">		System.out.println(<span class="string">"部署名称: "</span> + deploy.getName());</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 启动流程实例</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startProcessInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// 流程定义的key</span></span><br><span class="line">		String processDefinitionKey = <span class="string">"helloworld"</span>;</span><br><span class="line">		ProcessInstance processInstance = processEngine.getRuntimeService() <span class="comment">// 与正在执行的流程实例和执行对象相关的Service</span></span><br><span class="line">				.startProcessInstanceByKey(processDefinitionKey); <span class="comment">// 使用流程定义的key启动实例，key对应helloworld.bpmn文件中Id的属性值,默认是按照最新版本的流程定义启动</span></span><br><span class="line">		System.out.println(<span class="string">"流程实例ID: "</span> + processInstance.getId()); <span class="comment">// 流程实例Id</span></span><br><span class="line">			<span class="comment">// 对应act_ru_execution表中的ID</span></span><br><span class="line">			<span class="comment">// 101</span></span><br><span class="line">		System.out.println(<span class="string">"流程定义ID: "</span> + processInstance.getProcessDefinitionId()); <span class="comment">// 流程定义Id</span></span><br><span class="line">		<span class="comment">// 对应act_re_procdef表中的ID															//helloworld:1:4</span></span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 查询当前人的个人任务</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findMyPersonalTask</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		String assignee = <span class="string">"张三"</span>;</span><br><span class="line">		List&lt;Task&gt; list = processEngine.getTaskService() <span class="comment">// 与正在执行的任务管理相关的Service</span></span><br><span class="line">				.createTaskQuery() <span class="comment">// 创建任务对象</span></span><br><span class="line">				.taskAssignee(assignee) <span class="comment">// 指定个人任务,指定办理人</span></span><br><span class="line">				.list();</span><br><span class="line">		<span class="comment">// 存储在act_ru_task表</span></span><br><span class="line">		<span class="keyword">if</span> (list != <span class="keyword">null</span> &amp;&amp; list.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">for</span> (Task task : list) &#123;</span><br><span class="line">				System.out.println(<span class="string">"任务ID: "</span> + task.getId());</span><br><span class="line">				System.out.println(<span class="string">"任务名称: "</span> + task.getName());</span><br><span class="line">				System.out.println(<span class="string">"任务的创建时间: "</span> + task.getCreateTime());</span><br><span class="line">				System.out.println(<span class="string">"任务的办理人: "</span> + task.getAssignee());</span><br><span class="line">				System.out.println(<span class="string">"流程实例ID: "</span> + task.getProcessInstanceId());</span><br><span class="line">				System.out.println(<span class="string">"执行对象ID: "</span> + task.getExecutionId());</span><br><span class="line">				System.out.println(<span class="string">"流程定义ID: "</span> + task.getProcessDefinitionId());</span><br><span class="line">				System.out.println(<span class="string">"#######################################"</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 完成我的任务</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">completeMyPersonalTask</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		String taskId = <span class="string">"104"</span>;</span><br><span class="line">		processEngine.getTaskService().complete(taskId);</span><br><span class="line">		System.out.println(<span class="string">"完成任务：任务Id："</span> + taskId);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="演示流程任务执行"><a href="#演示流程任务执行" class="headerlink" title="演示流程任务执行"></a>演示流程任务执行</h4><p>根据上面所绘制的流程图步骤，如下操作</p>
+<ol>
+<li>首先，设置当前人的任务的assignee为张三并执行查询当前人的任务方法，得到张三的任务ID</li>
+<li>将当前人的任务ID带入并执行完成个人任务方法</li>
+<li>然后将步骤1中的assignee设置为李四，得到李四的任务ID，将李四的任务ID带入并执行步骤2</li>
+<li>最后将assignee设置为王五，得到王五的任务ID，将王五的任务ID带入并执行步骤2</li>
+<li>当以上步骤都完成时，就完成了模拟流程任务执行的过程</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">当前人</th>
+<th style="text-align:center">任务ID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">张三</td>
+<td style="text-align:center">104</td>
+</tr>
+<tr>
+<td style="text-align:center">李四</td>
+<td style="text-align:center">202</td>
+</tr>
+<tr>
+<td style="text-align:center">王五</td>
+<td style="text-align:center">302</td>
+</tr>
+</tbody>
+</table>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>通过上面的例子，可以总结出一般流程执行的主要步骤</p>
+<ol>
+<li>部署流程定义</li>
+<li>启动流程实例</li>
+<li>查询当前人的个人任务</li>
+<li>完成个人的任务</li>
+<li>重复执行3、4步，直到满足条件结束</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Activiti5入门/" rel="tag"># Activiti5入门</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Activiti5入门-Activiti5项目构建和核心API介绍.html" rel="next" title="Activiti5入门--Activiti5项目构建和核心API介绍">
+                <i class="fa fa-chevron-left"></i> Activiti5入门--Activiti5项目构建和核心API介绍
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Activiti5入门-流程定义的CRUD.html" rel="prev" title="Activiti5入门--流程定义的CRUD">
+                Activiti5入门--流程定义的CRUD <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/avatar.jpg" alt="codingShenZx">
+            
+              <p class="site-author-name" itemprop="name">codingShenZx</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/hangz007" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://gitee.com/hangz007" target="_blank" title="Gitee">
+                    
+                      <i class="fa fa-fw fa-heartbeat"></i>Gitee</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:hangz00749@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://hangz007.gitee.io" target="_blank" title="Document">
+                    
+                      <i class="fa fa-fw fa-book"></i>Document</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#绘制流程图"><span class="nav-number">1.</span> <span class="nav-text">绘制流程图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建bpmn文件"><span class="nav-number">1.1.</span> <span class="nav-text">创建bpmn文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#绘制流程"><span class="nav-number">1.2.</span> <span class="nav-text">绘制流程</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#模拟流程执行"><span class="nav-number">2.</span> <span class="nav-text">模拟流程执行</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#部署流程定义"><span class="nav-number">2.1.</span> <span class="nav-text">部署流程定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动流程实例"><span class="nav-number">2.2.</span> <span class="nav-text">启动流程实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询当前人的个人任务"><span class="nav-number">2.3.</span> <span class="nav-text">查询当前人的个人任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#完成个人的任务"><span class="nav-number">2.4.</span> <span class="nav-text">完成个人的任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#完整代码"><span class="nav-number">2.5.</span> <span class="nav-text">完整代码</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#演示流程任务执行"><span class="nav-number">2.6.</span> <span class="nav-text">演示流程任务执行</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">codingShenZx</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1274880509&web_id=1274880509" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

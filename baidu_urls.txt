@@ -1,0 +1,10 @@
+http://codingshenzx.cn/博客内容调整说明.html
+http://codingshenzx.cn/Maven环境隔离应用场景及配置.html
+http://codingshenzx.cn/Tomcat与Nginx集群.html
+http://codingshenzx.cn/Activiti5入门-用户角色组.html
+http://codingshenzx.cn/Activiti5入门-组任务分配.html
+http://codingshenzx.cn/Activiti5入门-个人任务分配.html
+http://codingshenzx.cn/Activiti5入门-接收活动.html
+http://codingshenzx.cn/Activiti5入门-流程实例开始结束.html
+http://codingshenzx.cn/Activiti5入门-并行网关.html
+http://codingshenzx.cn/Activiti5入门-排他网关.html

@@ -1,0 +1,1383 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Activiti5入门,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="通过前面几篇文章的学习，我们已经了解了流程定义的部署、查询、删除操作。本篇，我们将学习如何启动流程实例、执行任务。 首先，我们先在项目的src/main/java下新建包cn.demo.processinstance，并创建一个新类ProcessInstanceTest，以便我们学习。在学习新内容之前，我们先部署一个新的流程定义 123456789101112131415/** * 部署流程定义(">
+<meta name="keywords" content="Activiti5入门">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Activiti5入门--流程实例、任务的执行">
+<meta property="og:url" content="http://codingshenzx.cn/Activiti5入门-流程实例、任务的执行.html">
+<meta property="og:site_name" content="codingShenZx&#39;s Blog">
+<meta property="og:description" content="通过前面几篇文章的学习，我们已经了解了流程定义的部署、查询、删除操作。本篇，我们将学习如何启动流程实例、执行任务。 首先，我们先在项目的src/main/java下新建包cn.demo.processinstance，并创建一个新类ProcessInstanceTest，以便我们学习。在学习新内容之前，我们先部署一个新的流程定义 123456789101112131415/** * 部署流程定义(">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%B5%81%E7%A8%8B%E5%AE%9E%E4%BE%8B1.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%B5%81%E7%A8%8B2.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E5%8E%86%E5%8F%B2%E6%B5%81%E7%A8%8B%E8%A1%A81.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E5%8E%86%E5%8F%B2%E6%B5%81%E7%A8%8B%E8%A1%A82.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%AD%A3%E5%9C%A8%E6%89%A7%E8%A1%8C%E7%9A%84%E4%BB%BB%E5%8A%A1%E8%A1%A81.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%AD%A3%E5%9C%A8%E6%89%A7%E8%A1%8C%E7%9A%84%E4%BB%BB%E5%8A%A1%E8%A1%A82.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E5%8E%86%E5%8F%B2%E4%BB%BB%E5%8A%A1%E8%A1%A81.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E5%8E%86%E5%8F%B2%E4%BB%BB%E5%8A%A1%E8%A1%A82.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%89%80%E6%9C%89%E8%8A%82%E7%82%B9%E7%9A%84%E5%8E%86%E5%8F%B2%E8%A1%A81.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%89%80%E6%9C%89%E8%8A%82%E7%82%B9%E7%9A%84%E5%8E%86%E5%8F%B2%E8%A1%A82.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%AD%A3%E5%9C%A8%E6%89%A7%E8%A1%8C%E7%9A%84%E6%89%A7%E8%A1%8C%E5%AF%B9%E8%B1%A1%E8%A1%A83.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%B5%81%E7%A8%8B%E5%AE%9E%E4%BE%8B%E5%8E%86%E5%8F%B2%E8%A1%A83.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%AD%A3%E5%9C%A8%E6%89%A7%E8%A1%8C%E7%9A%84%E4%BB%BB%E5%8A%A13.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E5%8E%86%E5%8F%B2%E4%BB%BB%E5%8A%A1%E8%A1%A83.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E5%8E%86%E5%8F%B2%E4%BB%BB%E5%8A%A1%E8%A1%A84.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%89%80%E6%9C%89%E6%B4%BB%E5%8A%A8%E8%8A%82%E7%82%B9%E7%9A%84%E5%8E%86%E5%8F%B2%E8%A1%A83.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%89%80%E6%9C%89%E6%B4%BB%E5%8A%A8%E8%8A%82%E7%82%B9%E7%9A%84%E5%8E%86%E5%8F%B2%E8%A1%A84.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%89%A7%E8%A1%8C%E6%9D%8E%E5%9B%9B%E4%BB%BB%E5%8A%A1%E5%90%8E%E7%9A%84%E6%AD%A3%E5%9C%A8%E6%89%A7%E8%A1%8C%E5%AF%B9%E8%B1%A1%E8%A1%A8.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%B5%81%E7%A8%8B%E5%AE%9E%E4%BE%8B%E5%8E%86%E5%8F%B2%E8%A1%A83.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%89%A7%E8%A1%8C%E5%AE%8C%E6%9D%8E%E5%9B%9B%E4%BB%BB%E5%8A%A1%E7%9A%84%E6%AD%A3%E5%9C%A8%E6%89%A7%E8%A1%8C%E7%9A%84%E4%BB%BB%E5%8A%A1%E8%A1%A81.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%89%A7%E8%A1%8C%E5%AE%8C%E6%9D%8E%E5%9B%9B%E4%BB%BB%E5%8A%A1%E7%9A%84%E6%AD%A3%E5%9C%A8%E6%89%A7%E8%A1%8C%E7%9A%84%E4%BB%BB%E5%8A%A1%E8%A1%A82.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%89%A7%E8%A1%8C%E5%AE%8C%E6%9D%8E%E5%9B%9B%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%8E%86%E5%8F%B2%E4%BB%BB%E5%8A%A1%E8%A1%A81.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%89%A7%E8%A1%8C%E5%AE%8C%E6%9D%8E%E5%9B%9B%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%8E%86%E5%8F%B2%E4%BB%BB%E5%8A%A1%E8%A1%A82.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%89%A7%E8%A1%8C%E5%AE%8C%E6%9D%8E%E5%9B%9B%E4%BB%BB%E5%8A%A1%E7%9A%84%E6%89%80%E6%9C%89%E6%B4%BB%E5%8A%A8%E8%8A%82%E7%82%B9%E7%9A%84%E5%8E%86%E5%8F%B2%E8%A1%A81.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%89%A7%E8%A1%8C%E5%AE%8C%E6%9D%8E%E5%9B%9B%E4%BB%BB%E5%8A%A1%E7%9A%84%E6%89%80%E6%9C%89%E6%B4%BB%E5%8A%A8%E8%8A%82%E7%82%B9%E7%9A%84%E5%8E%86%E5%8F%B2%E8%A1%A82.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%89%A7%E8%A1%8C%E5%AE%8C%E7%8E%8B%E4%BA%94%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%8E%86%E5%8F%B2%E6%B5%81%E7%A8%8B%E5%AE%9E%E4%BE%8B%E8%A1%A81.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%89%A7%E8%A1%8C%E5%AE%8C%E7%8E%8B%E4%BA%94%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%8E%86%E5%8F%B2%E6%B5%81%E7%A8%8B%E5%AE%9E%E4%BE%8B%E8%A1%A82.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E5%AE%8C%E6%88%90%E7%8E%8B%E4%BA%94%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%8E%86%E5%8F%B2%E4%BB%BB%E5%8A%A1%E8%A1%A81.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E5%AE%8C%E6%88%90%E7%8E%8B%E4%BA%94%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%8E%86%E5%8F%B2%E4%BB%BB%E5%8A%A1%E8%A1%A82.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E5%AE%8C%E6%88%90%E7%8E%8B%E4%BA%94%E4%BB%BB%E5%8A%A1%E7%9A%84%E6%89%80%E6%9C%89%E5%8E%86%E5%8F%B2%E6%B4%BB%E5%8A%A8%E8%8A%82%E7%82%B9%E8%A1%A81.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E5%AE%8C%E6%88%90%E7%8E%8B%E4%BA%94%E4%BB%BB%E5%8A%A1%E7%9A%84%E6%89%80%E6%9C%89%E5%8E%86%E5%8F%B2%E6%B4%BB%E5%8A%A8%E8%8A%82%E7%82%B9%E8%A1%A82.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E5%8D%95%E7%BA%BF%E6%B5%81%E7%A8%8B%E4%B8%AD%E7%9A%84%E6%B5%81%E7%A8%8B%E5%AE%9E%E4%BE%8B%E5%92%8C%E6%89%A7%E8%A1%8C%E5%AF%B9%E8%B1%A1.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E5%B9%B6%E5%8F%91%E6%B5%81%E7%A8%8B%E4%B8%AD%E7%9A%84%E6%B5%81%E7%A8%8B%E5%AE%9E%E4%BE%8B%E5%92%8C%E6%89%A7%E8%A1%8C%E5%AF%B9%E8%B1%A1.png">
+<meta property="og:updated_time" content="2019-12-17T12:06:08.591Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Activiti5入门--流程实例、任务的执行">
+<meta name="twitter:description" content="通过前面几篇文章的学习，我们已经了解了流程定义的部署、查询、删除操作。本篇，我们将学习如何启动流程实例、执行任务。 首先，我们先在项目的src/main/java下新建包cn.demo.processinstance，并创建一个新类ProcessInstanceTest，以便我们学习。在学习新内容之前，我们先部署一个新的流程定义 123456789101112131415/** * 部署流程定义(">
+<meta name="twitter:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%B5%81%E7%A8%8B%E5%AE%9E%E4%BE%8B1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://codingshenzx.cn/Activiti5入门-流程实例、任务的执行.html">
+
+
+
+
+
+  <title>Activiti5入门--流程实例、任务的执行 | codingShenZx's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">codingShenZx's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://codingshenzx.cn/Activiti5入门-流程实例、任务的执行.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="codingShenZx">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="codingShenZx's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Activiti5入门--流程实例、任务的执行</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-04T21:26:30+08:00">
+                2018-09-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Activiti5/" itemprop="url" rel="index">
+                    <span itemprop="name">Activiti5</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  4.4k字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  17分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>通过前面几篇文章的学习，我们已经了解了流程定义的部署、查询、删除操作。本篇，我们将学习如何启动流程实例、执行任务。</p>
+<p>首先，我们先在项目的<code>src/main/java</code>下新建包<code>cn.demo.processinstance</code>，并创建一个新类<code>ProcessInstanceTest</code>，以便我们学习。在学习新内容之前，我们先部署一个新的流程定义</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 部署流程定义(zip文件格式)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deploymentProcessDefinitionZip</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	InputStream in = <span class="keyword">this</span>.getClass().getClassLoader().getResourceAsStream(<span class="string">"diagrams/helloworld.zip"</span>);</span><br><span class="line">	ZipInputStream zipInputStream = <span class="keyword">new</span> ZipInputStream(in);</span><br><span class="line">	Deployment deploy = processEngine.getRepositoryService() <span class="comment">// 与流程定义和部署对象相关的Service</span></span><br><span class="line">			.createDeployment() <span class="comment">// 创建一个部署对象</span></span><br><span class="line">			.name(<span class="string">"流程定义"</span>) <span class="comment">// 添加部署的名称</span></span><br><span class="line">			.addZipInputStream(zipInputStream)</span><br><span class="line">			.deploy(); <span class="comment">// 完成部署</span></span><br><span class="line">	System.out.println(<span class="string">"部署ID: "</span> + deploy.getId());</span><br><span class="line">	System.out.println(<span class="string">"部署名称: "</span> + deploy.getName());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行该代码，输出如下结果</p>
+<blockquote>
+<p>部署ID: 901<br>部署名称: 流程定义</p>
+</blockquote>
+<p>这样我们流程定义就部署好了</p>
+<h3 id="启动流程实例"><a href="#启动流程实例" class="headerlink" title="启动流程实例"></a>启动流程实例</h3><p>通过前面的<strong>HelloWorld</strong>例子，我们知道可以通过调用流程引擎的<strong>runTimeService</strong>的相关方法启动流程实例，现在我们就开始启动流程实例</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 启动流程实例</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startProcessInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 流程定义的key</span></span><br><span class="line">	String processDefinitionKey = <span class="string">"helloworld"</span>;</span><br><span class="line">	ProcessInstance processInstance = processEngine.getRuntimeService() <span class="comment">// 与正在执行		   的流程实例和执行对象相关的Service</span></span><br><span class="line">			.startProcessInstanceByKey(processDefinitionKey); <span class="comment">// 使用流程定义的key启动			实例，key对应helloworld.bpmn文件中Id的属性值,默认是按照最新版本的流程定义启动</span></span><br><span class="line">	System.out.println(<span class="string">"流程实例ID: "</span> + processInstance.getId()); <span class="comment">// 流程实例Id</span></span><br><span class="line">	System.out.println(<span class="string">"流程定义ID: "</span> + processInstance.getProcessDefinitionId()); 			<span class="comment">// 流程定义Id																	</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行上述代码，若一切正常，则输出流程实例ID和流程定义ID</p>
+<blockquote>
+<p>流程实例ID: 1001<br>流程定义ID: helloworld:4:904</p>
+</blockquote>
+<h4 id="正在执行的执行对象表"><a href="#正在执行的执行对象表" class="headerlink" title="正在执行的执行对象表"></a>正在执行的执行对象表</h4><p>若上一段代码成功执行，则表示流程实例已经启动好了。此时，<strong>act_ru_execution(正在执行的执行对象表)</strong>会新增一条记录。</p>
+<p>执行SQL语句<code>select * from act_ru_execution</code>，可以看到已经新增了一条记录</p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%B5%81%E7%A8%8B%E5%AE%9E%E4%BE%8B1.png" alt="流程实例1"></p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%B5%81%E7%A8%8B2.png" alt="流程实例2"></p>
+<p>其中，<strong>ID_</strong>被称为执行对象ID，<strong>PROC_INST_ID_</strong>被称为流程实例ID，由<strong>ACT_ID_</strong>字段的值可知，该流程执行到第一个用户节点-提交申请。显而易见，在该条记录当中，<strong>ID_</strong>和<strong>PROC_INST_ID_</strong>的值是相等的。<strong>但是，需要注意的是，这两个字段的值并不总是相等，相等有条件的</strong>。</p>
+<blockquote>
+<p> 如果是单例流程(没有分支和聚合)，那么流程实例ID和执行对象ID是相同的。</p>
+</blockquote>
+<h4 id="流程实例的历史表"><a href="#流程实例的历史表" class="headerlink" title="流程实例的历史表"></a>流程实例的历史表</h4><p>在<strong>activiti</strong>中存在一张流程实例的历史表<strong>act_hi_procinst(流程实例的历史表)</strong></p>
+<p>执行SQL语句<code>select * from act_hi_procinst</code>，可以看到一条<strong>PROC_INST_ID_</strong> 为1001的记录，该记录即为与上一张表记录相对应的记录，其<strong>END_TIME_</strong>为空，表明该流程实例尚未结束。</p>
+<blockquote>
+<p>对于一个流程来说，流程实例只有一个。执行对象可以存在多个(如果存在分支和聚合)</p>
+</blockquote>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E5%8E%86%E5%8F%B2%E6%B5%81%E7%A8%8B%E8%A1%A81.png" alt="流程实例历史表1"><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E5%8E%86%E5%8F%B2%E6%B5%81%E7%A8%8B%E8%A1%A82.png" alt="流程实例的历史表2"></p>
+<h4 id="正在执行的任务表"><a href="#正在执行的任务表" class="headerlink" title="正在执行的任务表"></a>正在执行的任务表</h4><p>除了流程实例表，activiti还存在一张<strong>act_ru_task(正在执行的任务表)</strong>，该表用来记录该流程实例正在执行的任务。</p>
+<p>执行SQL语句<code>select * from act_ru_task</code>，可以看到，该表存在一条记录，其任务所属人是张三。我们查询任个人任务时所依赖的就是这张表。<strong>需要注意的是，只有当节点为任务节点类型的时候，该表中才会存在数据</strong></p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%AD%A3%E5%9C%A8%E6%89%A7%E8%A1%8C%E7%9A%84%E4%BB%BB%E5%8A%A1%E8%A1%A81.png" alt="正在执行的任务表1"></p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%AD%A3%E5%9C%A8%E6%89%A7%E8%A1%8C%E7%9A%84%E4%BB%BB%E5%8A%A1%E8%A1%A82.png" alt="正在执行的任务表2"></p>
+<h4 id="历史任务表"><a href="#历史任务表" class="headerlink" title="历史任务表"></a>历史任务表</h4><p>相对地，对应于<strong>act_hi_taskinst(历史任务表)</strong>，<strong>activiti</strong>存在一张历史任务表<strong>act_hi_taskinst(历史任务表)</strong></p>
+<p>执行SQL语句<code>select * from act_hi_taskinst</code>，结果如下，和<strong>act_hi_taskinst(历史任务表)</strong>一样，该表也只有当节点为任务节点类型的时候，才会存在数据。</p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E5%8E%86%E5%8F%B2%E4%BB%BB%E5%8A%A1%E8%A1%A81.png" alt="历史任务表1"></p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E5%8E%86%E5%8F%B2%E4%BB%BB%E5%8A%A1%E8%A1%A82.png" alt="历史任务2"></p>
+<p>可以看到，<strong>ID_</strong>为1004的记录，其字段<strong>END_TIME_</strong>为空，表明该任务尚未结束，正在执行。</p>
+<h4 id="所有活动节点的历史表"><a href="#所有活动节点的历史表" class="headerlink" title="所有活动节点的历史表"></a>所有活动节点的历史表</h4><p>显而易见，无论是<strong>act_ru_task(正在执行的任务表)</strong>还是<strong>act_hi_taskinst(历史任务表)</strong>，其存储的都是任务节点的数据，这时，我们可能需要一张存储所有活动节点历史数据的表。<strong>activiti</strong>为我们提供了这样一张表-<strong>act_hi_actinst(所有活动节点的历史表)</strong>来满足我们的要求。</p>
+<p>执行SQL语句<code>select * from act_hi_actinst</code>，可以看到表中存在着该流程实例的<strong>startEvent1(开始节点)</strong>和<strong>usertask1(任务节点1)</strong>的数据。其中，开始节点的<strong>END_TIME_</strong>字段值不为空，表示其已经结束，此时执行到<strong>userTask1</strong>，该任务没有结束，其<strong>END_TIME_</strong>字段是空值。</p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%89%80%E6%9C%89%E8%8A%82%E7%82%B9%E7%9A%84%E5%8E%86%E5%8F%B2%E8%A1%A81.png" alt="所有节点的历史表1"></p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%89%80%E6%9C%89%E8%8A%82%E7%82%B9%E7%9A%84%E5%8E%86%E5%8F%B2%E8%A1%A82.png" alt="所有节点的历史表2"></p>
+<h3 id="查询和完成个人任务"><a href="#查询和完成个人任务" class="headerlink" title="查询和完成个人任务"></a>查询和完成个人任务</h3><p>查看流程图，我们可以看到存在三个用户任务，现在，我们依次查询并完成它，并观察各表数据变化。</p>
+<h4 id="查询和完成张三的任务"><a href="#查询和完成张三的任务" class="headerlink" title="查询和完成张三的任务"></a>查询和完成张三的任务</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 查询当前人的个人任务</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findMyPersonalTask</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	String assignee = <span class="string">"张三"</span>;</span><br><span class="line">	List&lt;Task&gt; list = processEngine.getTaskService() <span class="comment">// 与正在执行的任务管理相关的Service</span></span><br><span class="line">			.createTaskQuery() <span class="comment">// 创建任务对象</span></span><br><span class="line">			<span class="comment">/*查询条件（部分）*/</span></span><br><span class="line">			.taskAssignee(assignee) <span class="comment">// 指定个人任务,指定办理人</span></span><br><span class="line">			<span class="comment">// .taskCandidateUser(arg0) 组任务的办理人</span></span><br><span class="line">			<span class="comment">// .processDefinitionId(arg0)  流程定义id</span></span><br><span class="line">			<span class="comment">// .processInstanceId(arg0) // 流程实例id</span></span><br><span class="line">			<span class="comment">// .executionId(arg0) // 执行对象id</span></span><br><span class="line">			<span class="comment">/*排序*/</span></span><br><span class="line">			.orderByTaskCreateTime().asc()</span><br><span class="line">			<span class="comment">/*返回结果集*/</span></span><br><span class="line">			<span class="comment">// .singleResult() // 返回唯一结果集</span></span><br><span class="line">			<span class="comment">// .count() // 返回结果集数量</span></span><br><span class="line">			<span class="comment">// .listPage(arg0, arg1) // 分页查询结果集</span></span><br><span class="line">			.list();</span><br><span class="line">	<span class="comment">// 存储在act_ru_task表</span></span><br><span class="line">	<span class="keyword">if</span> (list != <span class="keyword">null</span> &amp;&amp; list.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">for</span> (Task task : list) &#123;</span><br><span class="line">			System.out.println(<span class="string">"任务ID: "</span> + task.getId());</span><br><span class="line">			System.out.println(<span class="string">"任务名称: "</span> + task.getName());</span><br><span class="line">			System.out.println(<span class="string">"任务的创建时间: "</span> + task.getCreateTime());</span><br><span class="line">			System.out.println(<span class="string">"任务的办理人: "</span> + task.getAssignee());</span><br><span class="line">			System.out.println(<span class="string">"流程实例ID: "</span> + task.getProcessInstanceId());</span><br><span class="line">			System.out.println(<span class="string">"执行对象ID: "</span> + task.getExecutionId());</span><br><span class="line">			System.out.println(<span class="string">"流程定义ID: "</span> + task.getProcessDefinitionId());</span><br><span class="line">			System.out.println(<span class="string">"#######################################"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>由于现在是在<strong>usertask1</strong>，我们查询张三的个人任务，其结果如下</p>
+<blockquote>
+<p>任务ID: 1004<br>任务名称: 提交申请<br>任务的创建时间: Tue Sep 04 22:49:25 CST 2018<br>任务的办理人: 张三<br>流程实例ID: 1001<br>执行对象ID: 1001<br>流程定义ID: helloworld:4:904</p>
+</blockquote>
+<p>在查询到任务之后，我们可以通过任务ID完成个人任务</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 完成我的任务</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">completeMyPersonalTask</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	String taskId = <span class="string">"1004"</span>;</span><br><span class="line">	processEngine.getTaskService().complete(taskId);</span><br><span class="line">	System.out.println(<span class="string">"完成任务：任务Id："</span> + taskId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行结果如下</p>
+<blockquote>
+<p>完成任务：任务Id：1004</p>
+</blockquote>
+<p>完成张三的个人任务后，我们来查询各表数据。</p>
+<p>首先，我们执行<code>select * from act_ru_execution</code>，查询<strong>正在执行的执行对象表</strong></p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%AD%A3%E5%9C%A8%E6%89%A7%E8%A1%8C%E7%9A%84%E6%89%A7%E8%A1%8C%E5%AF%B9%E8%B1%A1%E8%A1%A83.png" alt="正在执行的执行对象表3"></p>
+<p>对比上文，该记录的ACT_ID发生了改变，由<strong>usertask1</strong>变为了<strong>usertask2</strong>，此时，流程走到了下一个用户任务。</p>
+<p>其次，我们执行<code>select * from act_hi_procinst</code>，查询<strong>流程实例的历史表</strong></p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%B5%81%E7%A8%8B%E5%AE%9E%E4%BE%8B%E5%8E%86%E5%8F%B2%E8%A1%A83.png" alt="流程实例的历史表3"></p>
+<p>由于一个流程只有一个流程实例，其始终只有一条记录，该流程实例还在执行，因此<strong>END_TIME_</strong>字段值仍然为空</p>
+<p>接着，我们执行<code>select * from act_ru_task</code>，查询<strong>正在执行的任务表</strong></p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%AD%A3%E5%9C%A8%E6%89%A7%E8%A1%8C%E7%9A%84%E4%BB%BB%E5%8A%A13.png" alt="正在执行的任务3"></p>
+<p>此时，该记录的<strong>ID_</strong>发生变化，其<strong>NAME_</strong>字段也发生变化，<strong>ASSIGNEE</strong>也从<strong>张三</strong>变成了<strong>李四</strong> ，<strong>TASK_DEF_KEY_</strong>的值为<strong>usertask2</strong>。所以，此时我们可以查询到李四的个人任务，却查询不到张三的个人任务。</p>
+<p>然后，我们执行<code>select * from act_hi_taskinst</code>，查询<strong>历史任务表</strong></p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E5%8E%86%E5%8F%B2%E4%BB%BB%E5%8A%A1%E8%A1%A83.png" alt="历史任务表3"></p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E5%8E%86%E5%8F%B2%E4%BB%BB%E5%8A%A1%E8%A1%A84.png" alt="历史任务表4"></p>
+<p>可以看到<strong>ID_</strong>为1004的记录其<strong>END_TIME_</strong>不为空，已经完成了任务，而<strong>ID_</strong>为1102，<strong>TASK_DEF_KEY_</strong>的值为<strong>usertask2</strong>的李四任务还没有完成，其<strong>END_TIME_</strong>为空</p>
+<p>最后，我们执行<code>select * from act_hi_actinst</code>，查询<strong>所有活动节点的历史表</strong></p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%89%80%E6%9C%89%E6%B4%BB%E5%8A%A8%E8%8A%82%E7%82%B9%E7%9A%84%E5%8E%86%E5%8F%B2%E8%A1%A83.png" alt="所有节点的历史表3"></p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%89%80%E6%9C%89%E6%B4%BB%E5%8A%A8%E8%8A%82%E7%82%B9%E7%9A%84%E5%8E%86%E5%8F%B2%E8%A1%A84.png" alt="所有活动节点的历史表4"></p>
+<p>可以看到，<strong>TASK_ID_</strong>为1102的记录其<strong>END_TIME_</strong>字段值为空，表示任务还未完成，而这正是李四的个人任务</p>
+<h4 id="查询和完成李四的任务"><a href="#查询和完成李四的任务" class="headerlink" title="查询和完成李四的任务"></a>查询和完成李四的任务</h4><p>通过查询<strong>act_ru_task(正在执行的任务表)</strong>，我们知道，流程已经进行走到李四这了，我们先执行查询个人任务代码，将<strong>张三</strong>换成<strong>李四</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 查询当前人的个人任务</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findMyPersonalTask</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	String assignee = <span class="string">"李四"</span>;</span><br><span class="line">	List&lt;Task&gt; list = processEngine.getTaskService() <span class="comment">// 与正在执行的任务管理相关的Service</span></span><br><span class="line">			.createTaskQuery() <span class="comment">// 创建任务对象</span></span><br><span class="line">			<span class="comment">/*查询条件（部分）*/</span></span><br><span class="line">			.taskAssignee(assignee) <span class="comment">// 指定个人任务,指定办理人</span></span><br><span class="line">			<span class="comment">// .taskCandidateUser(arg0) 组任务的办理人</span></span><br><span class="line">			<span class="comment">// .processDefinitionId(arg0)  流程定义id</span></span><br><span class="line">			<span class="comment">// .processInstanceId(arg0) // 流程实例id</span></span><br><span class="line">			<span class="comment">// .executionId(arg0) // 执行对象id</span></span><br><span class="line">			<span class="comment">/*排序*/</span></span><br><span class="line">			.orderByTaskCreateTime().asc()</span><br><span class="line">			<span class="comment">/*返回结果集*/</span></span><br><span class="line">			<span class="comment">// .singleResult() // 返回唯一结果集</span></span><br><span class="line">			<span class="comment">// .count() // 返回结果集数量</span></span><br><span class="line">			<span class="comment">// .listPage(arg0, arg1) // 分页查询结果集</span></span><br><span class="line">			.list();</span><br><span class="line">	<span class="comment">// 存储在act_ru_task表</span></span><br><span class="line">	<span class="keyword">if</span> (list != <span class="keyword">null</span> &amp;&amp; list.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">for</span> (Task task : list) &#123;</span><br><span class="line">			System.out.println(<span class="string">"任务ID: "</span> + task.getId());</span><br><span class="line">			System.out.println(<span class="string">"任务名称: "</span> + task.getName());</span><br><span class="line">			System.out.println(<span class="string">"任务的创建时间: "</span> + task.getCreateTime());</span><br><span class="line">			System.out.println(<span class="string">"任务的办理人: "</span> + task.getAssignee());</span><br><span class="line">			System.out.println(<span class="string">"流程实例ID: "</span> + task.getProcessInstanceId());</span><br><span class="line">			System.out.println(<span class="string">"执行对象ID: "</span> + task.getExecutionId());</span><br><span class="line">			System.out.println(<span class="string">"流程定义ID: "</span> + task.getProcessDefinitionId());</span><br><span class="line">			System.out.println(<span class="string">"#######################################"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行代码，可以看到如下结果</p>
+<blockquote>
+<p>任务ID: 1102<br>任务名称: 审批【部门经理】<br>任务的创建时间: Wed Sep 05 23:48:17 CST 2018<br>任务的办理人: 李四<br>流程实例ID: 1001<br>执行对象ID: 1001<br>流程定义ID: helloworld:4:904</p>
+</blockquote>
+<p>接下来，我们使用任务ID完成李四的任务</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 完成我的任务</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">completeMyPersonalTask</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	String taskId = <span class="string">"1102"</span>;</span><br><span class="line">	processEngine.getTaskService().complete(taskId);</span><br><span class="line">	System.out.println(<span class="string">"完成任务：任务Id："</span> + taskId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>得到结果</p>
+<blockquote>
+<p>完成任务：任务Id：1102</p>
+</blockquote>
+<p>现在，我们再次看看上面提到的那几张表的表数据</p>
+<p>首先是<strong>act_ru_execution(正在执行的执行对象表)</strong>，此时其<strong>ACT_ID_</strong>的值为<strong>usertask3</strong>，流程已经进行到王五这了</p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%89%A7%E8%A1%8C%E6%9D%8E%E5%9B%9B%E4%BB%BB%E5%8A%A1%E5%90%8E%E7%9A%84%E6%AD%A3%E5%9C%A8%E6%89%A7%E8%A1%8C%E5%AF%B9%E8%B1%A1%E8%A1%A8.png" alt="执行完李四任务的正在执行的执行对象表"></p>
+<p>其次，我们看看<strong>act_hi_procinst(流程实例的历史表)</strong>，其没有任何变化</p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%B5%81%E7%A8%8B%E5%AE%9E%E4%BE%8B%E5%8E%86%E5%8F%B2%E8%A1%A83.png" alt="执行完李四任务的流程实例的历史表"></p>
+<p>接着是<strong>act_ru_task(正在执行的任务表)</strong>，其<strong>TASK_DEF_KEY_</strong>的值为<strong>usertask3</strong>，这也表明了流程已经进行到王五这了</p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%89%A7%E8%A1%8C%E5%AE%8C%E6%9D%8E%E5%9B%9B%E4%BB%BB%E5%8A%A1%E7%9A%84%E6%AD%A3%E5%9C%A8%E6%89%A7%E8%A1%8C%E7%9A%84%E4%BB%BB%E5%8A%A1%E8%A1%A81.png" alt="执行完李四任务的正在执行的任务表1"></p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%89%A7%E8%A1%8C%E5%AE%8C%E6%9D%8E%E5%9B%9B%E4%BB%BB%E5%8A%A1%E7%9A%84%E6%AD%A3%E5%9C%A8%E6%89%A7%E8%A1%8C%E7%9A%84%E4%BB%BB%E5%8A%A1%E8%A1%A82.png" alt="执行完李四任务的正在执行的任务表2"></p>
+<p>然后，我们再看<strong>act_hi_taskinst(历史任务表)</strong>，王五的这条记录</p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%89%A7%E8%A1%8C%E5%AE%8C%E6%9D%8E%E5%9B%9B%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%8E%86%E5%8F%B2%E4%BB%BB%E5%8A%A1%E8%A1%A81.png" alt="执行完李四任务的历史任务表1"></p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%89%A7%E8%A1%8C%E5%AE%8C%E6%9D%8E%E5%9B%9B%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%8E%86%E5%8F%B2%E4%BB%BB%E5%8A%A1%E8%A1%A82.png" alt="执行完李四任务的历史任务表2"></p>
+<p>最后，我们看<strong>act_hi_actinst(所有活动节点的历史表)</strong>，王五的这条<strong>END_TIME_</strong>这条记录的字段值为空，表明王五的任务还未完成。</p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%89%A7%E8%A1%8C%E5%AE%8C%E6%9D%8E%E5%9B%9B%E4%BB%BB%E5%8A%A1%E7%9A%84%E6%89%80%E6%9C%89%E6%B4%BB%E5%8A%A8%E8%8A%82%E7%82%B9%E7%9A%84%E5%8E%86%E5%8F%B2%E8%A1%A81.png" alt="执行完李四任务的所有活动节点的历史表"></p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%89%A7%E8%A1%8C%E5%AE%8C%E6%9D%8E%E5%9B%9B%E4%BB%BB%E5%8A%A1%E7%9A%84%E6%89%80%E6%9C%89%E6%B4%BB%E5%8A%A8%E8%8A%82%E7%82%B9%E7%9A%84%E5%8E%86%E5%8F%B2%E8%A1%A82.png" alt="执行完李四任务的所有活动节点的历史表2"></p>
+<p>为此，我们查询并完成王五的任务，走完这个流程</p>
+<h4 id="查询和完成王五的任务"><a href="#查询和完成王五的任务" class="headerlink" title="查询和完成王五的任务"></a>查询和完成王五的任务</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findMyPersonalTask</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	String assignee = <span class="string">"王五"</span>;</span><br><span class="line">	List&lt;Task&gt; list = processEngine.getTaskService() <span class="comment">// 与正在执行的任务管理相关的Service</span></span><br><span class="line">			.createTaskQuery() <span class="comment">// 创建任务对象</span></span><br><span class="line">			<span class="comment">/*查询条件（部分）*/</span></span><br><span class="line">			.taskAssignee(assignee) <span class="comment">// 指定个人任务,指定办理人</span></span><br><span class="line">			<span class="comment">// .taskCandidateUser(arg0) 组任务的办理人</span></span><br><span class="line">			<span class="comment">// .processDefinitionId(arg0)  流程定义id</span></span><br><span class="line">			<span class="comment">// .processInstanceId(arg0) // 流程实例id</span></span><br><span class="line">			<span class="comment">// .executionId(arg0) // 执行对象id</span></span><br><span class="line">			<span class="comment">/*排序*/</span></span><br><span class="line">			.orderByTaskCreateTime().asc()</span><br><span class="line">			<span class="comment">/*返回结果集*/</span></span><br><span class="line">			<span class="comment">// .singleResult() // 返回唯一结果集</span></span><br><span class="line">			<span class="comment">// .count() // 返回结果集数量</span></span><br><span class="line">			<span class="comment">// .listPage(arg0, arg1) // 分页查询结果集</span></span><br><span class="line">			.list();</span><br><span class="line">	<span class="comment">// 存储在act_ru_task表</span></span><br><span class="line">	<span class="keyword">if</span> (list != <span class="keyword">null</span> &amp;&amp; list.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">		<span class="keyword">for</span> (Task task : list) &#123;</span><br><span class="line">			System.out.println(<span class="string">"任务ID: "</span> + task.getId());</span><br><span class="line">			System.out.println(<span class="string">"任务名称: "</span> + task.getName());</span><br><span class="line">			System.out.println(<span class="string">"任务的创建时间: "</span> + task.getCreateTime());</span><br><span class="line">			System.out.println(<span class="string">"任务的办理人: "</span> + task.getAssignee());</span><br><span class="line">			System.out.println(<span class="string">"流程实例ID: "</span> + task.getProcessInstanceId());</span><br><span class="line">			System.out.println(<span class="string">"执行对象ID: "</span> + task.getExecutionId());</span><br><span class="line">			System.out.println(<span class="string">"流程定义ID: "</span> + task.getProcessDefinitionId());</span><br><span class="line">			System.out.println(<span class="string">"#######################################"</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行上述代码，得到如下结果</p>
+<blockquote>
+<p>任务ID: 1202<br>任务名称: 审批【总经理】<br>任务的创建时间: Thu Sep 06 19:59:40 CST 2018<br>任务的办理人: 王五<br>流程实例ID: 1001<br>执行对象ID: 1001<br>流程定义ID: helloworld:4:904</p>
+</blockquote>
+<p>接下来，完成王五的任务</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 完成我的任务</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">completeMyPersonalTask</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	String taskId = <span class="string">"1202"</span>;</span><br><span class="line">	processEngine.getTaskService().complete(taskId);</span><br><span class="line">	System.out.println(<span class="string">"完成任务：任务Id："</span> + taskId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行代码，结果如下</p>
+<blockquote>
+<p>完成任务：任务Id：1202</p>
+</blockquote>
+<p>现在，我们再查询一下这些表的数据</p>
+<p>首先，先看<strong>act_ru_execution(正在执行的执行对象表)</strong> </p>
+<p>显而易见，由于执行完王五的任务之后，流程已经结束了，因此该表数据为空</p>
+<p>再看，<strong>act_hi_procinst(流程实例的历史表)</strong> ，<strong>ID_</strong>为<strong>1001</strong>的这条记录的<strong>END_TIME_</strong>值不为空,表明该流程实例已经结束。</p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%89%A7%E8%A1%8C%E5%AE%8C%E7%8E%8B%E4%BA%94%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%8E%86%E5%8F%B2%E6%B5%81%E7%A8%8B%E5%AE%9E%E4%BE%8B%E8%A1%A81.png" alt="执行完王五任务的流程实例历史表1"></p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E6%89%A7%E8%A1%8C%E5%AE%8C%E7%8E%8B%E4%BA%94%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%8E%86%E5%8F%B2%E6%B5%81%E7%A8%8B%E5%AE%9E%E4%BE%8B%E8%A1%A82.png" alt="执行完王五任务的流程实例历史表2"></p>
+<p>接着看<strong>act_ru_task(正在执行的任务表)</strong> </p>
+<p>由于流程实例已经结束，已经没有任务在执行，所以该表数据为空</p>
+<p>然后，我们看一下<strong>act_hi_taskinst(历史任务表)</strong>，属于王五的记录其<strong>END_TIME_</strong>不为空，表明王五完成了任务</p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E5%AE%8C%E6%88%90%E7%8E%8B%E4%BA%94%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%8E%86%E5%8F%B2%E4%BB%BB%E5%8A%A1%E8%A1%A81.png" alt="执行完王五任务的历史任务表1"></p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E5%AE%8C%E6%88%90%E7%8E%8B%E4%BA%94%E4%BB%BB%E5%8A%A1%E7%9A%84%E5%8E%86%E5%8F%B2%E4%BB%BB%E5%8A%A1%E8%A1%A82.png" alt="执行完王五任务的历史任务表2"></p>
+<p>最后看一下<strong>act_hi_actinst(所有活动节点的历史表)</strong>，所有属于该流程实例的<strong>END_TIME_</strong>值不为空，所有活动节点都已经结束了。<img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E5%AE%8C%E6%88%90%E7%8E%8B%E4%BA%94%E4%BB%BB%E5%8A%A1%E7%9A%84%E6%89%80%E6%9C%89%E5%8E%86%E5%8F%B2%E6%B4%BB%E5%8A%A8%E8%8A%82%E7%82%B9%E8%A1%A81.png" alt="完成王五任务的所有历史活动节点表1"></p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E5%AE%8C%E6%88%90%E7%8E%8B%E4%BA%94%E4%BB%BB%E5%8A%A1%E7%9A%84%E6%89%80%E6%9C%89%E5%8E%86%E5%8F%B2%E6%B4%BB%E5%8A%A8%E8%8A%82%E7%82%B9%E8%A1%A82.png" alt="完成王五任务的所有历史活动节点表2"></p>
+<p>至此，该流程已经完全结束了。</p>
+<h3 id="查询流程状态"><a href="#查询流程状态" class="headerlink" title="查询流程状态"></a>查询流程状态</h3><p>有些时候，我们需要判断流程正在执行还是已经结束，则可以通过流程实例ID，调用<strong>runTimeService</strong>服务方法创建流程实例查询来完成。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 查询流程状态(判断流程正在执行还是结束)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">isProcessEnd</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	String processInstanceId = <span class="string">"1001"</span>;</span><br><span class="line">	ProcessInstance singleResult = processEngine.getRuntimeService() <span class="comment">// 表示正在执行的流程实例和执行对象</span></span><br><span class="line">	.createProcessInstanceQuery() <span class="comment">// 创建流程实例查询</span></span><br><span class="line">	.processInstanceId(processInstanceId) <span class="comment">// 使用流程实例ID查询</span></span><br><span class="line">	.singleResult();</span><br><span class="line">	<span class="keyword">if</span>(singleResult==<span class="keyword">null</span>) &#123;</span><br><span class="line">		System.out.println(<span class="string">"流程实例已经结束"</span>);</span><br><span class="line">	&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">		System.out.println(<span class="string">"流程没有结束"</span>);</span><br><span class="line">	&#125;		</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行上述代码，结果如下</p>
+<blockquote>
+<p>流程实例已经结束</p>
+</blockquote>
+<h3 id="查询历史任务"><a href="#查询历史任务" class="headerlink" title="查询历史任务"></a>查询历史任务</h3><p>当流程结束以后，我们可以查询历史任务，查询历史任务需要用到<strong>historyService</strong>服务创建历史任务实例查询实现，其代码如下</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 查询历史任务</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Test</span> </span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findHistoryTask</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		String taskAssignee = <span class="string">"张三"</span>;</span><br><span class="line">		List&lt;HistoricTaskInstance&gt; list = processEngine.getHistoryService() </span><br><span class="line">				<span class="comment">// 与历史数据(历史表相关的数据)</span></span><br><span class="line">				.createHistoricTaskInstanceQuery() <span class="comment">// 创建历史的任务实例查询</span></span><br><span class="line">				.taskAssignee(taskAssignee) <span class="comment">// 指定历史任务的办理人</span></span><br><span class="line">				.list();</span><br><span class="line">		<span class="keyword">if</span> (list != <span class="keyword">null</span> &amp;&amp; list.size() &gt; <span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">for</span> (HistoricTaskInstance his : list) &#123;</span><br><span class="line">				System.out.println(<span class="string">"历史任务id:"</span> + his.getId());</span><br><span class="line">				System.out.println(<span class="string">"历史任务名称:"</span> + his.getName());</span><br><span class="line">				System.out.println(<span class="string">"流程实例id:"</span> + his.getProcessInstanceId());</span><br><span class="line">				System.out.println(<span class="string">"开始时间:"</span> + his.getStartTime());</span><br><span class="line">				System.out.println(<span class="string">"结束时间:"</span> + his.getEndTime());</span><br><span class="line">				System.out.println(<span class="string">"持续时间:"</span> + his.getDurationInMillis());</span><br><span class="line">				System.out.println(<span class="string">""</span>);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果如下</p>
+<blockquote>
+<p>历史任务id:1004<br>历史任务名称:提交申请<br>流程实例id:1001<br>开始时间:Tue Sep 04 22:49:25 CST 2018<br>结束时间:Wed Sep 05 23:48:17 CST 2018<br>持续时间:89932060</p>
+<p>历史任务id:104<br>历史任务名称:提交申请<br>流程实例id:101<br>开始时间:Mon Jul 02 23:21:44 CST 2018<br>结束时间:Mon Jul 09 20:05:57 CST 2018<br>持续时间:593053592</p>
+</blockquote>
+<h3 id="查询历史流程实例"><a href="#查询历史流程实例" class="headerlink" title="查询历史流程实例"></a>查询历史流程实例</h3><p>使用<strong>historyService</strong>不仅可以查询历史任务，还可以查询历史流程实例,并且对于一个流程来说，这个结果是惟一的</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 查询历史流程实例</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findHistoryProcessInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	String processInstanceId = <span class="string">"1001"</span>;</span><br><span class="line">	HistoricProcessInstance singleResult = processEngine.getHistoryService() </span><br><span class="line">	<span class="comment">// 与历史数据(历史表相关的数据)</span></span><br><span class="line">	.createHistoricProcessInstanceQuery() <span class="comment">// 创建历史流程实例查询</span></span><br><span class="line">	.processInstanceId(processInstanceId) <span class="comment">// 使用流程实例id</span></span><br><span class="line">	.singleResult();	</span><br><span class="line">	System.out.println(<span class="string">"流程实例id:"</span>+singleResult.getId());</span><br><span class="line">	System.out.println(<span class="string">"流程定义id:"</span>+singleResult.getProcessDefinitionId());</span><br><span class="line">	System.out.println(<span class="string">"开始时间:"</span>+singleResult.getStartTime());</span><br><span class="line">	System.out.println(<span class="string">"结束时间:"</span>+singleResult.getEndTime());</span><br><span class="line">	System.out.println(<span class="string">"持续时间:"</span>+singleResult.getDurationInMillis());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行代码，结果如下</p>
+<blockquote>
+<p>流程实例id:1001<br>流程定义id:helloworld:4:904<br>开始时间:Tue Sep 04 22:49:25 CST 2018<br>结束时间:Thu Sep 06 21:06:56 CST 2018<br>持续时间:166651989</p>
+</blockquote>
+<h3 id="主要内容总结"><a href="#主要内容总结" class="headerlink" title="主要内容总结"></a>主要内容总结</h3><h4 id="执行对象和流程实例基本概念归纳"><a href="#执行对象和流程实例基本概念归纳" class="headerlink" title="执行对象和流程实例基本概念归纳"></a>执行对象和流程实例基本概念归纳</h4><p><strong>ProcessInstance(流程实例)</strong></p>
+<p>代表流程定义的执行实例 ,一个流程实例包括了所有的运行节点。我们可以利用这个对象来了解当前流程实例的进度等信息。</p>
+<blockquote>
+<p> <strong>流程实例表示一个流程从开始到结束的最大的流程分支</strong>，即一个流程中流程实例只有一个。 </p>
+</blockquote>
+<p><strong>Execution(执行对象)</strong></p>
+<p><strong>Activiti</strong>用这个对象去描述流程执行的每一个节点。在没有并发的情况下，<strong>Execution</strong>就是<strong>ProcessInstance</strong>。</p>
+<blockquote>
+<p> <strong>流程按照流程定义的规则执行一次的过程</strong>，就可以表示执行对象Execution。</p>
+</blockquote>
+<h4 id="流程实例源码分析"><a href="#流程实例源码分析" class="headerlink" title="流程实例源码分析"></a>流程实例源码分析</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Licensed under the Apache License, Version 2.0 (the "License");</span></span><br><span class="line"><span class="comment">package org.activiti.engine.runtime;</span></span><br><span class="line"><span class="comment">import java.util.Map;</span></span><br><span class="line"><span class="comment">import org.activiti.engine.repository.ProcessDefinition;</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">/** Represents one execution of a  &#123;@link ProcessDefinition&#125;.</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> * @author Tom Baeyens</span></span><br><span class="line"><span class="comment"> * @author Joram Barrez</span></span><br><span class="line"><span class="comment"> * @author Daniel Meyer</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">ProcessInstance</span> <span class="keyword">extends</span> <span class="title">Execution</span> </span>&#123;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * The id of the process definition of the process instance.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function">String <span class="title">getProcessDefinitionId</span><span class="params">()</span></span>;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * The business key of this process instance.</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function">String <span class="title">getBusinessKey</span><span class="params">()</span></span>;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">/**</span></span><br><span class="line"><span class="comment">   * returns true if the process instance is suspended</span></span><br><span class="line"><span class="comment">   */</span></span><br><span class="line">  <span class="function"><span class="keyword">boolean</span> <span class="title">isSuspended</span><span class="params">()</span></span>;</span><br><span class="line">  </span><br><span class="line">  <span class="comment">/** Returns the process variables if requested in the process instance query */</span></span><br><span class="line">  <span class="function">Map&lt;String, Object&gt; <span class="title">getProcessVariables</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从源代码中可以看出<strong>ProcessInstance</strong>就是<strong>Execution</strong>。但在现实意义上有所区别</p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E5%8D%95%E7%BA%BF%E6%B5%81%E7%A8%8B%E4%B8%AD%E7%9A%84%E6%B5%81%E7%A8%8B%E5%AE%9E%E4%BE%8B%E5%92%8C%E6%89%A7%E8%A1%8C%E5%AF%B9%E8%B1%A1.png" alt="单线流程中的流程实例和执行对象"></p>
+<p>在单线流程中，如上图的贷款流程，<strong>ProcessInstance</strong>与<strong>Execution</strong>是一致的。 </p>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E5%B7%A5%E4%BD%9C%E6%B5%81%E5%AE%9E%E4%BE%8B/%E5%B9%B6%E5%8F%91%E6%B5%81%E7%A8%8B%E4%B8%AD%E7%9A%84%E6%B5%81%E7%A8%8B%E5%AE%9E%E4%BE%8B%E5%92%8C%E6%89%A7%E8%A1%8C%E5%AF%B9%E8%B1%A1.png" alt="多线流程中的流程实例和执行对象"></p>
+<p>这个例子有一个特点:wire-money(汇钱)和archive(存档)是并发执行的。这个时候，总线路代表<strong>ProcessInstance</strong>，而分线路中每个活动代表<strong>Execution</strong>。 </p>
+<p>因此，</p>
+<ol>
+<li><strong>一个流程中，执行对象可以存在多个，但是流程实例只能有一个。</strong> </li>
+<li><strong>当流程按照规则只执行一次的时候，那么流程实例就是执行对象。</strong></li>
+</ol>
+<h4 id="流程实例和执行对象相关表"><a href="#流程实例和执行对象相关表" class="headerlink" title="流程实例和执行对象相关表"></a>流程实例和执行对象相关表</h4><p><strong>Execution(执行对象)</strong></p>
+<p>对应的表：<br>act_ru_execution： 正在执行的信息<br>act_hi_procinst：已经执行完的历史流程实例信息<br>act_hi_actinst：存放历史所有完成的活动</p>
+<p><strong>ProcessInstance(流程实例)</strong> </p>
+<ol>
+<li>如果是单例流程，执行对象ID就是流程实例ID 。</li>
+<li>如果一个流程有分支和聚合，那么执行对象ID和流程实例ID就不相同。</li>
+<li>一个流程中，流程实例只有1个，执行对象可以存在多个。</li>
+</ol>
+<p><strong>Task(任务)</strong></p>
+<p>对应的表：<br>act_ru_task：正在执行的任务信息<br>act_hi_taskinst：已经执行完的历史任务信息</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Activiti5入门/" rel="tag"># Activiti5入门</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Lombok快速入门.html" rel="next" title="Lombok快速入门">
+                <i class="fa fa-chevron-left"></i> Lombok快速入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Redis基础入门.html" rel="prev" title="Redis基础入门">
+                Redis基础入门 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/avatar.jpg" alt="codingShenZx">
+            
+              <p class="site-author-name" itemprop="name">codingShenZx</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/hangz007" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://gitee.com/hangz007" target="_blank" title="Gitee">
+                    
+                      <i class="fa fa-fw fa-heartbeat"></i>Gitee</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:hangz00749@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://hangz007.gitee.io" target="_blank" title="Document">
+                    
+                      <i class="fa fa-fw fa-book"></i>Document</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#启动流程实例"><span class="nav-number">1.</span> <span class="nav-text">启动流程实例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#正在执行的执行对象表"><span class="nav-number">1.1.</span> <span class="nav-text">正在执行的执行对象表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流程实例的历史表"><span class="nav-number">1.2.</span> <span class="nav-text">流程实例的历史表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#正在执行的任务表"><span class="nav-number">1.3.</span> <span class="nav-text">正在执行的任务表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#历史任务表"><span class="nav-number">1.4.</span> <span class="nav-text">历史任务表</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#所有活动节点的历史表"><span class="nav-number">1.5.</span> <span class="nav-text">所有活动节点的历史表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询和完成个人任务"><span class="nav-number">2.</span> <span class="nav-text">查询和完成个人任务</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#查询和完成张三的任务"><span class="nav-number">2.1.</span> <span class="nav-text">查询和完成张三的任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询和完成李四的任务"><span class="nav-number">2.2.</span> <span class="nav-text">查询和完成李四的任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询和完成王五的任务"><span class="nav-number">2.3.</span> <span class="nav-text">查询和完成王五的任务</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询流程状态"><span class="nav-number">3.</span> <span class="nav-text">查询流程状态</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询历史任务"><span class="nav-number">4.</span> <span class="nav-text">查询历史任务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查询历史流程实例"><span class="nav-number">5.</span> <span class="nav-text">查询历史流程实例</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#主要内容总结"><span class="nav-number">6.</span> <span class="nav-text">主要内容总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#执行对象和流程实例基本概念归纳"><span class="nav-number">6.1.</span> <span class="nav-text">执行对象和流程实例基本概念归纳</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流程实例源码分析"><span class="nav-number">6.2.</span> <span class="nav-text">流程实例源码分析</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#流程实例和执行对象相关表"><span class="nav-number">6.3.</span> <span class="nav-text">流程实例和执行对象相关表</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">codingShenZx</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1274880509&web_id=1274880509" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

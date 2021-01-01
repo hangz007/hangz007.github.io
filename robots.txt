@@ -1,0 +1,13 @@
+User-agent: * 
+Allow: / 
+Allow: /archives/ 
+Allow: /categories/ 
+Allow: /tags/ 
+Allow: /home/
+Disallow: /js/ 
+Disallow: /css/ 
+
+Sitemap: http://codingshenzx.cn/sitemap.xml
+Sitemap: http://codingshenzx.cn/baidusitemap.xml
+
+

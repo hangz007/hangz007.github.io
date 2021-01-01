@@ -1,0 +1,1464 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="en">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Activiti5入门,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="本章开始，我们来了解一个重要的概念-流程变量。流程变量在整个工作流中发挥着极其重要的作用，它记录了流程中的一些重要信息。例如，在请假流程中，请假天数和请假原因等都是流程变量的范围。  在上图中就涉及到设置和获取流程变量的问题。对于一个流程实例来说，其可以有多个流程变量，各个流程实例的流程变量是互不影响的。流程实例结束以后，流程变量仍然保存在数据库中。 流程变量流程图为了更好地讲解流程变量这个概念，">
+<meta name="keywords" content="Activiti5入门">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Activiti5入门--流程变量">
+<meta property="og:url" content="http://codingshenzx.cn/Activiti5入门-流程变量.html">
+<meta property="og:site_name" content="codingShenZx&#39;s Blog">
+<meta property="og:description" content="本章开始，我们来了解一个重要的概念-流程变量。流程变量在整个工作流中发挥着极其重要的作用，它记录了流程中的一些重要信息。例如，在请假流程中，请假天数和请假原因等都是流程变量的范围。  在上图中就涉及到设置和获取流程变量的问题。对于一个流程实例来说，其可以有多个流程变量，各个流程实例的流程变量是互不影响的。流程实例结束以后，流程变量仍然保存在数据库中。 流程变量流程图为了更好地讲解流程变量这个概念，">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F/%E8%AF%B7%E5%81%87.png">
+<meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F/%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F%E6%B5%81%E7%A8%8B.png">
+<meta property="og:image" content="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F/%E4%BD%BF%E7%94%A8%E4%BB%BB%E5%8A%A1%E6%9C%8D%E5%8A%A1%E8%AE%BE%E7%BD%AE%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F1.png">
+<meta property="og:image" content="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F/%E4%BD%BF%E7%94%A8%E4%BB%BB%E5%8A%A1%E6%9C%8D%E5%8A%A1%E8%AE%BE%E7%BD%AE%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F2.png">
+<meta property="og:image" content="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F/%E5%8E%86%E5%8F%B2%E7%9A%84%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F%E8%A1%A81.png">
+<meta property="og:image" content="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F/%E5%8E%86%E5%8F%B2%E7%9A%84%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F%E8%A1%A82.png">
+<meta property="og:image" content="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F/%E6%AD%A3%E5%9C%A8%E6%89%A7%E8%A1%8C%E7%9A%84%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F3.png">
+<meta property="og:image" content="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F/%E5%8E%86%E5%8F%B2%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F3.png">
+<meta property="og:image" content="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F/%E6%AD%A3%E5%9C%A8%E6%89%A7%E8%A1%8C%E7%9A%84%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F4.png">
+<meta property="og:image" content="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F/%E5%8E%86%E5%8F%B2%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F4.png">
+<meta property="og:image" content="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F/%E5%8E%86%E5%8F%B2%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F5.png">
+<meta property="og:image" content="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F/Java%20Bean%E6%AD%A3%E5%9C%A8%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F1.png">
+<meta property="og:image" content="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F/Java%20Bean%E6%AD%A3%E5%9C%A8%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F2.png">
+<meta property="og:image" content="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F/%E5%AD%98%E5%82%A8%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F%E7%9A%84%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6%E8%A1%A8.png">
+<meta property="og:updated_time" content="2019-12-17T12:06:08.591Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Activiti5入门--流程变量">
+<meta name="twitter:description" content="本章开始，我们来了解一个重要的概念-流程变量。流程变量在整个工作流中发挥着极其重要的作用，它记录了流程中的一些重要信息。例如，在请假流程中，请假天数和请假原因等都是流程变量的范围。  在上图中就涉及到设置和获取流程变量的问题。对于一个流程实例来说，其可以有多个流程变量，各个流程实例的流程变量是互不影响的。流程实例结束以后，流程变量仍然保存在数据库中。 流程变量流程图为了更好地讲解流程变量这个概念，">
+<meta name="twitter:image" content="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F/%E8%AF%B7%E5%81%87.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://codingshenzx.cn/Activiti5入门-流程变量.html">
+
+
+
+
+
+  <title>Activiti5入门--流程变量 | codingShenZx's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="en">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">codingShenZx's Blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <h1 class="site-subtitle" itemprop="description"></h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            Tags
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+            
+            Categories
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            Search
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://codingshenzx.cn/Activiti5入门-流程变量.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="codingShenZx">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="codingShenZx's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">Activiti5入门--流程变量</h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-23T21:52:22+08:00">
+                2018-09-23
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Activiti5/" itemprop="url" rel="index">
+                    <span itemprop="name">Activiti5</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  5.2k字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  20分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>本章开始，我们来了解一个重要的概念-流程变量。流程变量在整个工作流中发挥着极其重要的作用，它记录了流程中的一些重要信息。例如，在请假流程中，请假天数和请假原因等都是流程变量的范围。</p>
+<p><img src="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F/%E8%AF%B7%E5%81%87.png" alt="流程变量"></p>
+<p>在上图中就涉及到设置和获取流程变量的问题。对于一个流程实例来说，其可以有多个流程变量，各个流程实例的流程变量是互不影响的。流程实例结束以后，流程变量仍然保存在数据库中。</p>
+<h3 id="流程变量流程图"><a href="#流程变量流程图" class="headerlink" title="流程变量流程图"></a>流程变量流程图</h3><p>为了更好地讲解流程变量这个概念，我们再画一张流程图，在<strong>src\main\resources\diagrams</strong>下新建<strong>processVariables.bpmn</strong>文件，其包含以下节点</p>
+<ol>
+<li>开始节点，点击空白处，选择<strong>process</strong>选项卡，设置其<strong>Id</strong>为<strong>processVariables</strong>，其<strong>Name</strong>为<strong>processVariablesProcess</strong></li>
+<li>创建第一个用户任务节点，节点<strong>Name</strong>为<strong>提交申请</strong>，其<strong>Assignee</strong>为<strong>张晓晓</strong></li>
+<li>创建第二个用户任务节点，节点<strong>Name</strong>为<strong>经理审批</strong>，其<strong>Assignee</strong>为<strong>李大大</strong></li>
+<li>结束节点</li>
+</ol>
+<p><img src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F/%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F%E6%B5%81%E7%A8%8B.png" alt="流程变量流程"></p>
+<h3 id="流程变量作用"><a href="#流程变量作用" class="headerlink" title="流程变量作用"></a>流程变量作用</h3><p>刚才说到流程变量在流程中发挥着极其重要的作用，归纳起来，其主要有三个作用</p>
+<ol>
+<li>用来传递业务参数</li>
+<li>指定连线完成任务(同意和拒绝)</li>
+<li>动态指定任务的办理人</li>
+</ol>
+<p>接下来，我们就通过实际例子感受流程变量的使用</p>
+<h3 id="流程变量使用示例"><a href="#流程变量使用示例" class="headerlink" title="流程变量使用示例"></a>流程变量使用示例</h3><h4 id="部署流程定义"><a href="#部署流程定义" class="headerlink" title="部署流程定义"></a>部署流程定义</h4><p>不可避免地，我们先要部署流程定义，启动流程实例。当这些准备工作做好后，才可以使用流程变量</p>
+<p>首先，我们先创建一个新包<strong>cn.demo.processvariables</strong>，再新建一个类<strong>ProcessVariablesTest </strong>。不同于上一章使用<strong>zip</strong>部署流程定义，现在，我们使用输入流来部署流程定义。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 部署流程定义(从inputstream)</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">deploymentProcessDefinition</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	InputStream inputstreambpmn = <span class="keyword">this</span>.getClass().getResourceAsStream(<span class="string">"/diagrams/processVariables.bpmn"</span>);</span><br><span class="line">	InputStream inputstreampng = <span class="keyword">this</span>.getClass().getResourceAsStream(<span class="string">"/diagrams/processVariables.png"</span>);</span><br><span class="line">	Deployment deploy = processEngine.getRepositoryService() </span><br><span class="line">       <span class="comment">// 与流程定义和部署对象相关的Service</span></span><br><span class="line">	.createDeployment() <span class="comment">// 创建一个部署对象</span></span><br><span class="line">	.name(<span class="string">"流程定义"</span>) <span class="comment">// 添加部署的名称</span></span><br><span class="line">	.addInputStream(<span class="string">"processVariables.bpmn"</span>, inputstreambpmn) </span><br><span class="line">       <span class="comment">// 使用资源文件的名称(要求与资源文件的名称要一致)和输入流完成部署</span></span><br><span class="line">	.addInputStream(<span class="string">"processVariables.png"</span>, inputstreampng) </span><br><span class="line">       <span class="comment">// 使用资源文件的名称(要求与资源文件的名称要一致)和输入流完成部署</span></span><br><span class="line">	.deploy(); <span class="comment">// 完成部署</span></span><br><span class="line">	System.out.println(<span class="string">"部署ID: "</span> + deploy.getId());</span><br><span class="line">	System.out.println(<span class="string">"部署名称: "</span> + deploy.getName());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>若部署成功，则输出以下结果</p>
+<blockquote>
+<p>部署ID: 1401<br>部署名称: 流程定义</p>
+</blockquote>
+<h4 id="启动流程实例"><a href="#启动流程实例" class="headerlink" title="启动流程实例"></a>启动流程实例</h4><p>部署好流程定义以后，接下来，就是启动流程实例了。查询流程定义表可知，流程定义的<strong>key</strong>为<strong>processVariables</strong></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 启动流程实例</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">startProcessInstance</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 流程定义的key</span></span><br><span class="line">	String processDefinitionKey = <span class="string">"processVariables"</span>;</span><br><span class="line">	ProcessInstance processInstance = processEngine.getRuntimeService() </span><br><span class="line">       <span class="comment">// 与正在执行的流程实例和执行对象相关的Service</span></span><br><span class="line">			.startProcessInstanceByKey(processDefinitionKey); </span><br><span class="line">	System.out.println(<span class="string">"流程实例ID: "</span> + processInstance.getId()); <span class="comment">// 流程实例Id</span></span><br><span class="line">	System.out.println(<span class="string">"流程定义ID: "</span> + processInstance.getProcessDefinitionId()); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>若启动成功，则输出以下结果</p>
+<blockquote>
+<p>流程实例ID: 1501<br>流程定义ID: processVariables:1:1404</p>
+</blockquote>
+<p>这样，准备工作就做好了。</p>
+<h3 id="设置和获取流程变量"><a href="#设置和获取流程变量" class="headerlink" title="设置和获取流程变量"></a>设置和获取流程变量</h3><p>在启动流程实例以后，接下来就可以学习如何使用流程变量了。使用流程变量可以分为设置流程变量和获取流程变量两部分。</p>
+<p>在<strong>Activiti</strong>中，可以使用两个服务来设置和获取流程变量</p>
+<ul>
+<li>与流程实例、执行对象相关的<strong>runtimeService</strong></li>
+<li>与任务相关的<strong>taskService</strong></li>
+</ul>
+<p><strong>runtimeService</strong>和<strong>taskService</strong>都可以用来设置流程变量，其方法大致相同，既可以使用基本数据类型，也可以使用自定义对象类型设置流程变量。</p>
+<p>这两个服务设置流程变量的方法大致相同，如下表</p>
+<ol>
+<li><strong>runtimeService</strong></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">函数（设置）</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">setVariable(executionId, variableName, variableValue);或setVariableLocal(executionId, variableName, variableValue);</td>
+<td style="text-align:center">表示使用执行对象id和流程变量的名称设置流程变量的值，但是一次只能设置一个值</td>
+</tr>
+<tr>
+<td style="text-align:center">setVariables(executionId, variables);或setVariablesLocal(executionId, variables);</td>
+<td style="text-align:center">表示使用执行对象id和map集合设置流程变量，map集合的key就是流程变量的名称，value为流程变量的值</td>
+</tr>
+<tr>
+<td style="text-align:center">startProcessInstanceByKey(processDefinitionKey, variables);</td>
+<td style="text-align:center">启动流程实例的同时设置流程变量，使用map集合</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>函数（获取）</strong></td>
+<td style="text-align:center"><strong>作用</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">getVariable(executionId, variableName);</td>
+<td style="text-align:center">使用执行对象的Id和流程变量的名称获取流程变量的值</td>
+</tr>
+<tr>
+<td style="text-align:center">getVariables(executionId);</td>
+<td style="text-align:center">使用执行对象的Id获取所有的流程变量，将流程变量放置到Map集合中，Map集合中的key为流程变量的名称，value为流程变量的值</td>
+</tr>
+<tr>
+<td style="text-align:center">getVariables(executionId, collection);</td>
+<td style="text-align:center">使用执行对象Id获取流程变量的值，通过设置流程变量的名称存放到一个集合中，来获取指定流程变量名称的流程变量</td>
+</tr>
+</tbody>
+</table>
+<ol start="2">
+<li><strong>taskService</strong></li>
+</ol>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">函数（设置）</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">setVariable(taskId, variableName, variableValue);或setVariableLocal(taskId, variableName, variableValue);</td>
+<td style="text-align:center">表示使用任务id和流程变量的名称设置流程变量的值，但是一次只能设置一个值</td>
+</tr>
+<tr>
+<td style="text-align:center">setVariables(taskId, variables);或setVariablesLocal(taskId, variables);</td>
+<td style="text-align:center">表示使用任务id和map集合设置流程变量，map集合的key就是流程变量的名称，value为流程变量的值</td>
+</tr>
+<tr>
+<td style="text-align:center">complete(taskId, variables);</td>
+<td style="text-align:center">完成任务的同时设置流程变量</td>
+</tr>
+<tr>
+<td style="text-align:center"><strong>函数（获取）</strong></td>
+<td style="text-align:center"><strong>作用</strong></td>
+</tr>
+<tr>
+<td style="text-align:center">getVariable(taskId, variableName);</td>
+<td style="text-align:center">使用任务Id和流程变量的名称获取流程变量的值</td>
+</tr>
+<tr>
+<td style="text-align:center">getVariables(taskId);</td>
+<td style="text-align:center">使用任务Id获取所有的流程变量，将流程变量放置到Map集合中，Map集合中的key为流程变量的名称，value为流程变量的值</td>
+</tr>
+<tr>
+<td style="text-align:center">getVariables(taskId, collection);</td>
+<td style="text-align:center">使用任务Id获取流程变量的值，通过设置流程变量的名称存放到一个集合中，获取指定流程变量名称的流程变量</td>
+</tr>
+</tbody>
+</table>
+<h4 id="使用基本数据类型"><a href="#使用基本数据类型" class="headerlink" title="使用基本数据类型"></a>使用基本数据类型</h4><p>由上一节可以知道，当前的任务<strong>Id</strong>为1504，可以使用<strong>taskService</strong>设置流程变量</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 设置流程变量</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setVariables</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	String taskId = <span class="string">"1504"</span>;</span><br><span class="line">	TaskService taskService = processEngine.getTaskService();</span><br><span class="line">	<span class="comment">/*设置流程变量，使用基本类型*/</span></span><br><span class="line">	taskService.setVariableLocal(taskId,  <span class="string">"请假天数"</span>, <span class="number">3</span>);<span class="comment">// 与任务Id绑定</span></span><br><span class="line">	taskService.setVariable(taskId, <span class="string">"请假日期"</span>, <span class="keyword">new</span> Date());</span><br><span class="line">	taskService.setVariable(taskId, <span class="string">"请假原因"</span>, <span class="string">"回家探亲"</span>);</span><br><span class="line">	System.out.println(<span class="string">"设置流程变量成功"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>若执行成功，则控制台输出“设置流程变量成功”。现在，我们来看一下相关表数据</p>
+<p><strong>act_ru_variable(正在执行的流程变量表)</strong></p>
+<p>执行SQL语句<code>SELECT * FROM act_ru_variable</code>，可以看到有三条记录，分别是“请假原因”、“请假日期”、“请假天数”这三条记录</p>
+<p><img src="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F/%E4%BD%BF%E7%94%A8%E4%BB%BB%E5%8A%A1%E6%9C%8D%E5%8A%A1%E8%AE%BE%E7%BD%AE%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F1.png" alt="任务服务设置流程变量1"></p>
+<p><img src="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F/%E4%BD%BF%E7%94%A8%E4%BB%BB%E5%8A%A1%E6%9C%8D%E5%8A%A1%E8%AE%BE%E7%BD%AE%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F2.png" alt="任务服务设置流程变量2"></p>
+<p>分析数据可以看到</p>
+<ul>
+<li>使用<strong>setVariableLocal</strong>方法设置的“请假天数”，其<strong>TASK_ID_</strong>字段的值不为空，”请假天数”和当前任务绑定，而使用<strong>setVariable</strong>方法设置的“请假日期”和“请假原因”其<strong>TASK_ID_</strong>字段的值为空</li>
+<li>注意到<strong>TYPE_</strong>字段，<strong>Activiti</strong>根据设置的流程变量的值自动判断了值所属的类型，并且将值存在了相对应类型的字段中</li>
+</ul>
+<p><strong>act_hi_varinst(历史的流程变量表)</strong></p>
+<p>除了<strong>act_ru_variable(正在执行的流程变量表)</strong>，相对应的，还存在一张历史表<strong>act_hi_varinst(历史的流程变量表)</strong>用于存储历史的流程变量</p>
+<p>执行SQL语句<code>SELECT * FROM act_hi_varinst</code>查询该表，同样可以获得三条数据</p>
+<p><img src="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F/%E5%8E%86%E5%8F%B2%E7%9A%84%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F%E8%A1%A81.png" alt="历史的流程变量表1"></p>
+<p><img src="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F/%E5%8E%86%E5%8F%B2%E7%9A%84%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F%E8%A1%A82.png" alt="历史的流程变量表2"></p>
+<p>现在我们可以获取这些流程变量的值了</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 获取流程变量</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getVariables</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	String taskId = <span class="string">"1504"</span>;</span><br><span class="line">	TaskService taskService = processEngine.getTaskService();</span><br><span class="line">	<span class="comment">/*获取流程变量，使用基本类型*/</span></span><br><span class="line">	Integer days = (Integer) taskService.getVariable(taskId, <span class="string">"请假天数"</span>);</span><br><span class="line">	Date date = (Date) taskService.getVariable(taskId, <span class="string">"请假日期"</span>);</span><br><span class="line">	String reason = (String) taskService.getVariable(taskId, <span class="string">"请假原因"</span>);</span><br><span class="line">	System.out.println(<span class="string">"请假天数:"</span>+days);</span><br><span class="line">	System.out.println(<span class="string">"请假日期:"</span>+date);</span><br><span class="line">	System.out.println(<span class="string">"请假原因:"</span>+reason);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行上述代码，输出”请假天数”、”请假日期”、”请假原因”的值</p>
+<blockquote>
+<p>请假天数:3<br>请假日期:Wed Sep 26 21:41:11 CST 2018<br>请假原因:回家探亲</p>
+</blockquote>
+<p>接下来，我们来完成这个任务</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 完成我的任务</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">completeMyPersonalTask</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	String taskId = <span class="string">"1504"</span>;</span><br><span class="line">	processEngine.getTaskService().complete(taskId);</span><br><span class="line">	System.out.println(<span class="string">"完成任务：任务Id："</span> + taskId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行代码，输入任务<strong>Id</strong></p>
+<blockquote>
+<p>完成任务：任务Id：1504</p>
+</blockquote>
+<p>此时，张晓晓的任务已经完成，流程执行到李大大，即经理审批这一阶段，此时查询<strong>act_ru_task(正在执行的任务表)</strong>，得到当前任务的任务<strong>Id</strong>为1702，再次获取流程变量的值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 获取流程变量</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getVariables</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		String taskId = <span class="string">"1702"</span>;</span><br><span class="line">		TaskService taskService = processEngine.getTaskService();</span><br><span class="line">		<span class="comment">/*获取流程变量，使用基本类型*/</span></span><br><span class="line">		Integer days = (Integer) taskService.getVariable(taskId, <span class="string">"请假天数"</span>);</span><br><span class="line">		Date date = (Date) taskService.getVariable(taskId, <span class="string">"请假日期"</span>);</span><br><span class="line">		String reason = (String) taskService.getVariable(taskId, <span class="string">"请假原因"</span>);</span><br><span class="line">		System.out.println(<span class="string">"请假天数:"</span>+days);</span><br><span class="line">		System.out.println(<span class="string">"请假日期:"</span>+date);</span><br><span class="line">		System.out.println(<span class="string">"请假原因:"</span>+reason);</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>执行代码，可以得到如下结果</p>
+<blockquote>
+<p>请假天数:null<br>请假日期:Wed Sep 26 21:41:11 CST 2018<br>请假原因:回家探亲</p>
+</blockquote>
+<p>对比上一个任务执行结果，可以看到请假天数为空值，其原因正是因为我们在设置”请假天数”的时候使用的是<strong>taskService</strong>的<strong>setVariableLocal</strong>方法，该方法将“请假天数”这个流程变量和特定任务绑定在一起造成的。查询<strong>act_ru_variable(正在执行的流程变量表)</strong>，可以看到”请假天数”记录已经不存在了</p>
+<p><img src="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F/%E6%AD%A3%E5%9C%A8%E6%89%A7%E8%A1%8C%E7%9A%84%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F3.png" alt="正在执行的流程变量3"></p>
+<p>但是，查询<strong>act_hi_varinst(历史的流程变量表)</strong>，可以看到该数据还存在</p>
+<p><img src="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F/%E5%8E%86%E5%8F%B2%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F3.png" alt="历史流程变量3"></p>
+<p>再次执行设置流程变量方法，<strong>taskId</strong>修改为1702，”请假天数”修改为5</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 设置流程变量</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setVariables</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	String taskId = <span class="string">"1702"</span>;</span><br><span class="line">	TaskService taskService = processEngine.getTaskService();</span><br><span class="line">	<span class="comment">/*设置流程变量，使用基本类型*/</span></span><br><span class="line">	taskService.setVariableLocal(taskId,  <span class="string">"请假天数"</span>, <span class="number">5</span>);<span class="comment">// 与任务Id绑定</span></span><br><span class="line">	taskService.setVariable(taskId, <span class="string">"请假日期"</span>, <span class="keyword">new</span> Date());</span><br><span class="line">	taskService.setVariable(taskId, <span class="string">"请假原因"</span>, <span class="string">"回家探亲,一起吃个饭"</span>);</span><br><span class="line">	System.out.println(<span class="string">"设置流程变量成功"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行上述代码，查询<strong>act_ru_variable(正在执行的流程变量表)</strong></p>
+<p><img src="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F/%E6%AD%A3%E5%9C%A8%E6%89%A7%E8%A1%8C%E7%9A%84%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F4.png" alt="执行完张晓晓任务后的流程变量表"></p>
+<p>此时，数据再次回复为三条，”请假天数”这条记录又出现了，其<strong>TASK_ID_</strong>为1702，而”请假日期”和”请假原因”的<strong>REV_</strong>由前面的1变为了2，上一次的记录被覆盖了。</p>
+<p>查询<strong>act_hi_varinst(历史的流程变量表)</strong></p>
+<p><img src="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F/%E5%8E%86%E5%8F%B2%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F4.png" alt="历史流程变量4"></p>
+<p><img src="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F/%E5%8E%86%E5%8F%B2%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F5.png" alt="历史流程变量5"></p>
+<p>可以看到，对应于绑定了不同的任务<strong>Id</strong>的流程变量”请假天数”，其记录各有一条，而对于没有绑定任务<strong>Id</strong>的</p>
+<p>流程变量”请假日期”和”请假原因”则分别只有一条记录，旧记录被新纪录所覆盖。</p>
+<p>最后，我们结束李大大的任务</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 完成我的任务</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">completeMyPersonalTask</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	String taskId = <span class="string">"1702"</span>;</span><br><span class="line">	processEngine.getTaskService().complete(taskId);</span><br><span class="line">	System.out.println(<span class="string">"完成任务：任务Id："</span> + taskId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再次查询<strong>act_ru_variable(正在执行的流程变量表)</strong>，其记录数为0，没有数据，而<strong>act_hi_varinst(历史的流程变量表)</strong>则和上图一样，仍然是四条数据</p>
+<h4 id="使用Java-Bean"><a href="#使用Java-Bean" class="headerlink" title="使用Java Bean"></a>使用Java Bean</h4><p>为了演示使用java Bean设置和获取流程变量功能，在<strong>cn.demo.processvariables</strong>包下创建一个简单的Java Bean类<strong>Person</strong>，其有<strong>id</strong>和<strong>name</strong>两个属性</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.demo.processvariables;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> Integer id; <span class="comment">//编号</span></span><br><span class="line">	<span class="keyword">private</span> String name; <span class="comment">//姓名</span></span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Integer <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> id;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.id = id;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> name;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>首先，我们重新部署流程定义并启动流程实例，得到其部署<strong>Id</strong>为2001，其流程实例<strong>Id</strong>为2101，其流程定义<strong>Id</strong>为processVariables:2:2004，查询<strong>act_ru_task(正在执行的任务表)</strong>，得到其任务<strong>Id</strong>为2104，和上面类似，将该Java Bean设置给“人员信息这个流程变量。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 设置流程变量</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setVariables</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		String taskId = <span class="string">"2104"</span>;</span><br><span class="line">		TaskService taskService = processEngine.getTaskService();</span><br><span class="line">		<span class="comment">/*设置流程变量，使用基本类型*/</span></span><br><span class="line"><span class="comment">//		taskService.setVariableLocal(taskId,  "请假天数", 5);// 与任务Id绑定</span></span><br><span class="line"><span class="comment">//		taskService.setVariable(taskId, "请假日期", new Date());</span></span><br><span class="line"><span class="comment">//		taskService.setVariable(taskId, "请假原因", "回家探亲,一起吃个饭");</span></span><br><span class="line">		<span class="comment">/*设置流程变量，使用java bean类型*/</span></span><br><span class="line">		Person p = <span class="keyword">new</span> Person();</span><br><span class="line">		p.setId(<span class="number">10</span>);</span><br><span class="line">		p.setName(<span class="string">"翠花"</span>);</span><br><span class="line">		taskService.setVariable(taskId, <span class="string">"人员信息"</span>, p);</span><br><span class="line">		System.out.println(<span class="string">"设置流程变量成功"</span>);	</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>执行上述代码，发生异常</p>
+<blockquote>
+<p>org.activiti.engine.ActivitiException: couldn’t find a variable type that is able to serialize cn.demo.processvariables.Person@3232a28a<br>    at org.activiti.engine.impl.variable.DefaultVariableTypes.findVariableType(DefaultVariableTypes.java:62)<br>    at org.activiti.engine.impl.persistence.entity.VariableScopeImpl.createVariableInstance(VariableScopeImpl.java:361)……</p>
+</blockquote>
+<p>从异常信息得到提示，该Java Bean必须实现序列化，因此，我们修改Java Bean代码实现序列化接口</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.demo.processvariables;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> Integer id; <span class="comment">//编号</span></span><br><span class="line">	<span class="keyword">private</span> String name; <span class="comment">//姓名</span></span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Integer <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> id;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.id = id;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> name;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再次执行设置流程变量代码,输出”设置流程变量成功”。</p>
+<p>执行SQL语句<code>SELECT * FROM act_ru_variable</code>，查询<strong>act_ru_variable(正在执行的流程变量表)</strong>，可以看到流程变量的类型为<strong>serializable</strong>，其它存储流程变量具体值的字段为空。</p>
+<p><img src="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F/Java%20Bean%E6%AD%A3%E5%9C%A8%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F1.png" alt="JavaBean正在执行的流程变量1"></p>
+<p><img src="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F/Java%20Bean%E6%AD%A3%E5%9C%A8%E8%BF%90%E8%A1%8C%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F2.png" alt="JavaBean正在执行的流程变量2"></p>
+<p>注意到字段<strong>BYTEARRAY_ID_</strong>，该字段是存储该Java Bean具体字段值的<strong>act_ge_bytearray(资源文件表)</strong>主键<strong>Id</strong>。执行SQL语句<code>SELECT * FROM act_ge_bytearray</code></p>
+<p><img src="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F/%E5%AD%98%E5%82%A8%E6%B5%81%E7%A8%8B%E5%8F%98%E9%87%8F%E7%9A%84%E8%B5%84%E6%BA%90%E6%96%87%E4%BB%B6%E8%A1%A8.png" alt="存储流程变量的资源文件表"></p>
+<p>可以看到，<strong>ID_</strong>为2201的记录的<strong>BYTES_</strong>存储的值即为该Java Bean的各字段的值，不难猜测，<strong>ID_</strong>为2203的记录的<strong>BYTES_</strong>字段存储的值就是<strong>act_hi_varinst(历史的流程变量表)</strong>的该Java Bean的各字段的值。</p>
+<p>接下来，我们获取这个Java Bean中的字段值</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 获取流程变量</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getVariables</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		String taskId = <span class="string">"2104"</span>;</span><br><span class="line">		TaskService taskService = processEngine.getTaskService();</span><br><span class="line">		<span class="comment">/*获取流程变量，使用基本类型*/</span></span><br><span class="line"><span class="comment">//		Integer days = (Integer) taskService.getVariable(taskId, "请假天数");</span></span><br><span class="line"><span class="comment">//		Date date = (Date) taskService.getVariable(taskId, "请假日期");</span></span><br><span class="line"><span class="comment">//		String reason = (String) taskService.getVariable(taskId, "请假原因");</span></span><br><span class="line"><span class="comment">//		System.out.println("请假天数:"+days);</span></span><br><span class="line"><span class="comment">//		System.out.println("请假日期:"+date);</span></span><br><span class="line"><span class="comment">//		System.out.println("请假原因:"+reason);</span></span><br><span class="line">		<span class="comment">/*获取流程变量，使用javabean*/</span></span><br><span class="line">		Person p = (Person) taskService.getVariable(taskId, <span class="string">"人员信息"</span>);</span><br><span class="line">		System.out.println(p.getId()+<span class="string">","</span>+p.getName());</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>运行代码，输出如下结果</p>
+<blockquote>
+<p>10,翠花</p>
+</blockquote>
+<p><strong>注意，当一个Java Bean(实现序列化)放置到流程变量后，要求Java Bean的属性不能再发生变化，如果发生变化，再次获取的时候，将会抛出异常。</strong></p>
+<p>现在，我们将修改<strong>Person</strong>类代码，增加一个属性</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.demo.processvariables;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> Integer id; <span class="comment">//编号</span></span><br><span class="line">	<span class="keyword">private</span> String name; <span class="comment">//姓名</span></span><br><span class="line">	<span class="keyword">private</span> String education;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getEducation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> education;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setEducation</span><span class="params">(String education)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.education = education;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Integer <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> id;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.id = id;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> name;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再次执行获取流程变量方法，发生异常</p>
+<blockquote>
+<p>org.activiti.engine.ActivitiException: Couldn’t deserialize object in variable ‘人员信息’<br>    at org.activiti.engine.impl.variable.SerializableType.getValue(SerializableType.java:68)<br>    at org.activiti.engine.impl.persistence.entity.VariableInstanceEntity.getValue(VariableInstanceEntity.java:165)……</p>
+</blockquote>
+<p>为了解决该问题，我们先将<strong>Person</strong>类恢复到原状，为该类指定一个固定的序列号</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.demo.processvariables;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">1934812997221186394L</span>;</span><br><span class="line">	<span class="keyword">private</span> Integer id; <span class="comment">//编号</span></span><br><span class="line">	<span class="keyword">private</span> String name; <span class="comment">//姓名</span></span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Integer <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> id;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.id = id;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> name;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>紧接着，我们再重新设置流程变量</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 设置流程变量</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setVariables</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		String taskId = <span class="string">"2104"</span>;</span><br><span class="line">		TaskService taskService = processEngine.getTaskService();</span><br><span class="line">		<span class="comment">/*设置流程变量，使用基本类型*/</span></span><br><span class="line"><span class="comment">//		taskService.setVariableLocal(taskId,  "请假天数", 5);// 与任务Id绑定</span></span><br><span class="line"><span class="comment">//		taskService.setVariable(taskId, "请假日期", new Date());</span></span><br><span class="line"><span class="comment">//		taskService.setVariable(taskId, "请假原因", "回家探亲,一起吃个饭");</span></span><br><span class="line">		<span class="comment">/*设置流程变量，使用java bean类型*/</span></span><br><span class="line">		Person p = <span class="keyword">new</span> Person();</span><br><span class="line">		p.setId(<span class="number">20</span>);</span><br><span class="line">		p.setName(<span class="string">"翠花"</span>);</span><br><span class="line">		taskService.setVariable(taskId, <span class="string">"人员信息(添加固定版本)"</span>, p);</span><br><span class="line">		System.out.println(<span class="string">"设置流程变量成功"</span>);	</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>此时，设置流程变量成功，再次执行获取流程变量，成功获取流程变量的值</p>
+<blockquote>
+<p>20,翠花</p>
+</blockquote>
+<p>然后，我们再次恢复字段<strong>education</strong>，并保持版本号不变</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> cn.demo.processvariables;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.Serializable;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Person</span> <span class="keyword">implements</span> <span class="title">Serializable</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">long</span> serialVersionUID = -<span class="number">1934812997221186394L</span>;</span><br><span class="line">	<span class="keyword">private</span> Integer id; <span class="comment">//编号</span></span><br><span class="line">	<span class="keyword">private</span> String name; <span class="comment">//姓名</span></span><br><span class="line">	<span class="keyword">private</span> String education;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getEducation</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> education;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setEducation</span><span class="params">(String education)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.education = education;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> Integer <span class="title">getId</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> id;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setId</span><span class="params">(Integer id)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.id = id;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> String <span class="title">getName</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">return</span> name;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">setName</span><span class="params">(String name)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>再次执行获取流程变量方法</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 获取流程变量</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">getVariables</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		String taskId = <span class="string">"2104"</span>;</span><br><span class="line">		TaskService taskService = processEngine.getTaskService();</span><br><span class="line">		<span class="comment">/*获取流程变量，使用基本类型*/</span></span><br><span class="line"><span class="comment">//		Integer days = (Integer) taskService.getVariable(taskId, "请假天数");</span></span><br><span class="line"><span class="comment">//		Date date = (Date) taskService.getVariable(taskId, "请假日期");</span></span><br><span class="line"><span class="comment">//		String reason = (String) taskService.getVariable(taskId, "请假原因");</span></span><br><span class="line"><span class="comment">//		System.out.println("请假天数:"+days);</span></span><br><span class="line"><span class="comment">//		System.out.println("请假日期:"+date);</span></span><br><span class="line"><span class="comment">//		System.out.println("请假原因:"+reason);</span></span><br><span class="line">		<span class="comment">/*获取流程变量，使用javabean*/</span></span><br><span class="line">		Person p = (Person) taskService.getVariable(taskId, <span class="string">"人员信息(添加固定版本)"</span>);</span><br><span class="line">		System.out.println(p.getId()+<span class="string">","</span>+p.getName());</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>此时程序不再报异常，能够获取到正确的值。</p>
+<blockquote>
+<p>因此，我们若希望能够当Java Bean的属性发生变化并再次获取时不发生异常，实现序列化接口的同时，固定Java Bean的序列号</p>
+</blockquote>
+<p>为了便于查询历史流程变量，我们先完成流程</p>
+<p>完成张晓晓的任务</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 完成我的任务</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">completeMyPersonalTask</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	String taskId = <span class="string">"2104"</span>;</span><br><span class="line">	processEngine.getTaskService().complete(taskId);</span><br><span class="line">	System.out.println(<span class="string">"完成任务：任务Id："</span> + taskId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>完成李大大的任务</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 完成我的任务</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">completeMyPersonalTask</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	String taskId = <span class="string">"2402"</span>;</span><br><span class="line">	processEngine.getTaskService().complete(taskId);</span><br><span class="line">	System.out.println(<span class="string">"完成任务：任务Id："</span> + taskId);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="查询流程变量历史表"><a href="#查询流程变量历史表" class="headerlink" title="查询流程变量历史表"></a>查询流程变量历史表</h4><p>最后，我们查询一下流程变量历史表</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 查询流程变量历史表</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="meta">@Test</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">findHistoryProcessVariables</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		List&lt;HistoricVariableInstance&gt; list = processEngine.getHistoryService()</span><br><span class="line">				.createHistoricVariableInstanceQuery()</span><br><span class="line">				.variableName(<span class="string">"请假天数"</span>)</span><br><span class="line">				.list();</span><br><span class="line">		<span class="keyword">if</span>(list!=<span class="keyword">null</span> &amp;&amp; list.size()&gt;<span class="number">0</span>) &#123;</span><br><span class="line">			<span class="keyword">for</span>(HistoricVariableInstance hvi:list) &#123;</span><br><span class="line">				System.out.println(hvi.getId()+<span class="string">","</span></span><br><span class="line">						+hvi.getProcessInstanceId()</span><br><span class="line">						+<span class="string">","</span>+hvi.getVariableName()</span><br><span class="line">						+<span class="string">","</span>+hvi.getVariableTypeName()</span><br><span class="line">						+<span class="string">","</span>+hvi.getValue());</span><br><span class="line">				System.out.println();</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>运行代码，输出结果</p>
+<blockquote>
+<p>1601,1501,请假天数,integer,3</p>
+<p>1801,1501,请假天数,integer,5</p>
+</blockquote>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><h4 id="流程变量主要知识点"><a href="#流程变量主要知识点" class="headerlink" title="流程变量主要知识点"></a>流程变量主要知识点</h4><ol>
+<li>流程变量的作用<ul>
+<li>在流程执行或者任务执行的过程中，用于设置和获取变量</li>
+<li>使用流程变量在流程传递的过程中传递业务参数</li>
+</ul>
+</li>
+<li>流程变量对应的表<ul>
+<li>act_ru_variable：正在执行的流程变量表</li>
+<li>act_hi_varinst：流程变量历史表</li>
+</ul>
+</li>
+<li>设置流程变量的设置<ul>
+<li>流程变量的作用域就是流程实例，所以可以在任何阶段设置</li>
+<li>使用基本类型设置流程变量，在<strong>taskService</strong>中使用任务<strong>Id</strong>，定义流程变量的名称，设置流程变量的值</li>
+<li>使用<strong>Javabean</strong>类型设置流程变量，需要这个<strong>JavaBean</strong>实现了<strong>Serializable</strong>接口</li>
+<li>设置流程变量的时候，意味着向<strong>act_ru_variable</strong>这个表添加数据</li>
+</ul>
+</li>
+<li>获取流程变量<ul>
+<li>流程变量的获取针对流程实例（即1个流程），每个流程实例获取的流程变量是不同的</li>
+<li>使用基本类型获取流程变量，在<strong>taskService</strong>中使用任务ID，流程变量的名称，获取流程变量的值</li>
+<li><strong>JavaBean</strong>类型设置和获取流程变量，除了需要这个<strong>JavaBean</strong>实现了<strong>Serializable</strong>接口外，还要求流程变量对象的属性不能发生变化，否则抛出异常。解决方案是固定该<strong>JavaBean</strong>的序列化<strong>Id</strong></li>
+</ul>
+</li>
+<li>获取和设置流程变量的服务和时机以及方式<ul>
+<li><strong>RuntimeService</strong>对象可以设置流程变量和获取流程变量 </li>
+<li><strong>TaskService</strong>对象可以设置流程变量和获取流程变量</li>
+<li>流程实例启动的时候可以设置流程变量</li>
+<li>任务办理完成的时候可以设置流程变量</li>
+<li>流程变量可以通过名称/值的形式设置单个流程变量</li>
+<li>流程变量可以通过Map集合，同时设置多个流程变量，Map集合的key表示流程变量的名称，Map集合的value表示流程变量的值</li>
+</ul>
+</li>
+</ol>
+<h4 id="setVariable和setVariableLocal的区别"><a href="#setVariable和setVariableLocal的区别" class="headerlink" title="setVariable和setVariableLocal的区别"></a>setVariable和setVariableLocal的区别</h4><p>setVariable：</p>
+<p>设置流程变量的时候，流程变量名称相同的时候，后一次的值替换前一次的值，而且可以看到TASK_ID的字段不会存放任务ID的值</p>
+<p>setVariableLocal：</p>
+<ol>
+<li>设置流程变量的时候，针对当前活动的节点设置流程变量，如果一个流程中存在2个活动节点，对每个活动节点都设置流程变量，即使流程变量的名称相同，后一次的版本的值也不会替换前一次版本的值，它会使用不同的任务ID作为标识，存放2个流程变量值，而且可以看到TASK_ID的字段会存放任务ID的值 </li>
+<li>还有，使用setVariableLocal说明流程变量绑定了当前的任务，当流程继续执行时，下个任务获取不到这个流程变量（因为正在执行的流程变量中没有这个数据），所有查询正在执行的任务时不能查询到我们需要的数据，此时需要查询历史的流程变量</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Activiti5入门/" rel="tag"># Activiti5入门</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/Redis基础入门.html" rel="next" title="Redis基础入门">
+                <i class="fa fa-chevron-left"></i> Redis基础入门
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/Activiti5入门-流程历史数据查询.html" rel="prev" title="Activiti5入门--流程历史数据查询">
+                Activiti5入门--流程历史数据查询 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/avatar.jpg" alt="codingShenZx">
+            
+              <p class="site-author-name" itemprop="name">codingShenZx</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-name">categories</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-name">tags</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+              
+                <span class="links-of-author-item">
+                  <a href="https://github.com/hangz007" target="_blank" title="GitHub">
+                    
+                      <i class="fa fa-fw fa-github"></i>GitHub</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://gitee.com/hangz007" target="_blank" title="Gitee">
+                    
+                      <i class="fa fa-fw fa-heartbeat"></i>Gitee</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="mailto:hangz00749@163.com" target="_blank" title="E-Mail">
+                    
+                      <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                </span>
+              
+                <span class="links-of-author-item">
+                  <a href="https://hangz007.gitee.io" target="_blank" title="Document">
+                    
+                      <i class="fa fa-fw fa-book"></i>Document</a>
+                </span>
+              
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#流程变量流程图"><span class="nav-number">1.</span> <span class="nav-text">流程变量流程图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流程变量作用"><span class="nav-number">2.</span> <span class="nav-text">流程变量作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流程变量使用示例"><span class="nav-number">3.</span> <span class="nav-text">流程变量使用示例</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#部署流程定义"><span class="nav-number">3.1.</span> <span class="nav-text">部署流程定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动流程实例"><span class="nav-number">3.2.</span> <span class="nav-text">启动流程实例</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#设置和获取流程变量"><span class="nav-number">4.</span> <span class="nav-text">设置和获取流程变量</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用基本数据类型"><span class="nav-number">4.1.</span> <span class="nav-text">使用基本数据类型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用Java-Bean"><span class="nav-number">4.2.</span> <span class="nav-text">使用Java Bean</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询流程变量历史表"><span class="nav-number">4.3.</span> <span class="nav-text">查询流程变量历史表</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">5.</span> <span class="nav-text">总结</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#流程变量主要知识点"><span class="nav-number">5.1.</span> <span class="nav-text">流程变量主要知识点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#setVariable和setVariableLocal的区别"><span class="nav-number">5.2.</span> <span class="nav-text">setVariable和setVariableLocal的区别</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">codingShenZx</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1274880509&web_id=1274880509" language="JavaScript"></script>
+  </div>
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+  
+
+  
+  
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({
+        tex2jax: {
+          inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+          processEscapes: true,
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+        }
+      });
+    </script>
+
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for (i=0; i < all.length; i += 1) {
+          all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+      });
+    </script>
+    <script type="text/javascript" src="//cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
