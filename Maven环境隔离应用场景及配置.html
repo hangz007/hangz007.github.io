@@ -6,10 +6,10 @@
 
 
 <html class="theme-next muse use-motion" lang="en">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
 
 
@@ -20,8 +20,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
@@ -40,7 +40,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
@@ -48,9 +48,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Maven环境隔离,">
+  <meta name="keywords" content="Maven环境隔离," />
 
 
 
@@ -80,19 +80,19 @@
 
 
 <meta name="description" content="在实际的项目中，我们经常会遇到各种各样的环境，大致可以分为以下四种：  本地开发环境(Local) 开发环境(Dev) 测试环境(Beta) 线上环境(Prod)  在这些环境中，其配置参数往往会有比较大的差异。例如：数据库地址、FTP服务器地址，这些可能都不一样。因此，我们有必要寻找一种合适的手段来解决它。Maven环境隔离就是一种隔离不同环境配置差异的可行方案。 Mavan环境隔离的好处首先，">
-<meta name="keywords" content="Maven环境隔离">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Maven环境隔离应用场景及配置">
-<meta property="og:url" content="http://codingshenzx.cn/Maven环境隔离应用场景及配置.html">
+<meta property="og:url" content="http://codingshenzx.cn/Maven%E7%8E%AF%E5%A2%83%E9%9A%94%E7%A6%BB%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%E5%8F%8A%E9%85%8D%E7%BD%AE.html">
 <meta property="og:site_name" content="codingShenZx&#39;s Blog">
 <meta property="og:description" content="在实际的项目中，我们经常会遇到各种各样的环境，大致可以分为以下四种：  本地开发环境(Local) 开发环境(Dev) 测试环境(Beta) 线上环境(Prod)  在这些环境中，其配置参数往往会有比较大的差异。例如：数据库地址、FTP服务器地址，这些可能都不一样。因此，我们有必要寻找一种合适的手段来解决它。Maven环境隔离就是一种隔离不同环境配置差异的可行方案。 Mavan环境隔离的好处首先，">
-<meta property="og:locale" content="en">
+<meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/Maven/Maven%E7%8E%AF%E5%A2%83%E9%9A%94%E7%A6%BB%E7%9B%AE%E5%BD%95.png">
 <meta property="og:image" content="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/Maven/idea%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4%E7%8E%AF%E5%A2%83.png">
-<meta property="og:updated_time" content="2019-12-17T12:06:08.606Z">
+<meta property="article:published_time" content="2018-12-10T14:31:41.000Z">
+<meta property="article:modified_time" content="2021-01-01T09:20:57.445Z">
+<meta property="article:author" content="codingShenZx">
+<meta property="article:tag" content="Maven环境隔离">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Maven环境隔离应用场景及配置">
-<meta name="twitter:description" content="在实际的项目中，我们经常会遇到各种各样的环境，大致可以分为以下四种：  本地开发环境(Local) 开发环境(Dev) 测试环境(Beta) 线上环境(Prod)  在这些环境中，其配置参数往往会有比较大的差异。例如：数据库地址、FTP服务器地址，这些可能都不一样。因此，我们有必要寻找一种合适的手段来解决它。Maven环境隔离就是一种隔离不同环境配置差异的可行方案。 Mavan环境隔离的好处首先，">
 <meta name="twitter:image" content="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/Maven/Maven%E7%8E%AF%E5%A2%83%E9%9A%94%E7%A6%BB%E7%9B%AE%E5%BD%95.png">
 
 
@@ -100,7 +100,7 @@
 <script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Muse',
     version: '5.1.3',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
@@ -123,7 +123,7 @@
 
 
 
-  <link rel="canonical" href="http://codingshenzx.cn/Maven环境隔离应用场景及配置.html">
+  <link rel="canonical" href="http://codingshenzx.cn/Maven环境隔离应用场景及配置.html"/>
 
 
 
@@ -139,7 +139,7 @@
 
 
 
-</head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
 
@@ -157,7 +157,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
+      <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">codingShenZx's Blog</span>
         <span class="logo-line-after"><i></i></span>
@@ -187,7 +187,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
             Home
           </a>
@@ -197,7 +197,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
             Tags
           </a>
@@ -207,7 +207,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
             Categories
           </a>
@@ -217,7 +217,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             Archives
           </a>
@@ -230,7 +230,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
             
             Search
           </a>
@@ -251,7 +251,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -288,11 +290,11 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://codingshenzx.cn/Maven环境隔离应用场景及配置.html">
+    <link itemprop="mainEntityOfPage" href="http://codingshenzx.cn/Maven%E7%8E%AF%E5%A2%83%E9%9A%94%E7%A6%BB%E5%BA%94%E7%94%A8%E5%9C%BA%E6%99%AF%E5%8F%8A%E9%85%8D%E7%BD%AE.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="codingShenZx">
-      <meta itemprop="description" content>
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/avatar.jpg">
     </span>
 
@@ -328,7 +330,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -466,7 +468,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Maven环境隔离/" rel="tag"># Maven环境隔离</a>
+            <a href="/tags/Maven%E7%8E%AF%E5%A2%83%E9%9A%94%E7%A6%BB/" rel="tag"># Maven环境隔离</a>
           
         </div>
       
@@ -479,7 +481,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/Tomcat与Nginx集群.html" rel="next" title="Tomcat与Nginx集群">
+              <a href="/Tomcat%E4%B8%8ENginx%E9%9B%86%E7%BE%A4.html" rel="next" title="Tomcat与Nginx集群">
                 <i class="fa fa-chevron-left"></i> Tomcat与Nginx集群
               </a>
             
@@ -489,7 +491,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/博客内容调整说明.html" rel="prev" title="博客内容调整说明">
+              <a href="/%E5%8D%9A%E5%AE%A2%E5%86%85%E5%AE%B9%E8%B0%83%E6%95%B4%E8%AF%B4%E6%98%8E.html" rel="prev" title="博客内容调整说明">
                 博客内容调整说明 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -557,9 +559,11 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/avatar.jpg" alt="codingShenZx">
+              <img class="site-author-image" itemprop="image"
+                src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/avatar.jpg"
+                alt="" />
             
-              <p class="site-author-name" itemprop="name">codingShenZx</p>
+              <p class="site-author-name" itemprop="name"></p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
@@ -568,9 +572,9 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/archives/">
+                <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -592,7 +596,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -653,7 +657,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mavan环境隔离的好处"><span class="nav-number">1.</span> <span class="nav-text">Mavan环境隔离的好处</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maven环境隔离配置"><span class="nav-number">2.</span> <span class="nav-text">Maven环境隔离配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#配置resources节点"><span class="nav-number">2.1.</span> <span class="nav-text">配置resources节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置profiles节点"><span class="nav-number">2.2.</span> <span class="nav-text">配置profiles节点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IDEA中设置默认环境"><span class="nav-number">3.</span> <span class="nav-text">IDEA中设置默认环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maven环境隔离编译打包命令"><span class="nav-number">4.</span> <span class="nav-text">Maven环境隔离编译打包命令</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Mavan%E7%8E%AF%E5%A2%83%E9%9A%94%E7%A6%BB%E7%9A%84%E5%A5%BD%E5%A4%84"><span class="nav-number">1.</span> <span class="nav-text">Mavan环境隔离的好处</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maven%E7%8E%AF%E5%A2%83%E9%9A%94%E7%A6%BB%E9%85%8D%E7%BD%AE"><span class="nav-number">2.</span> <span class="nav-text">Maven环境隔离配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEresources%E8%8A%82%E7%82%B9"><span class="nav-number">2.1.</span> <span class="nav-text">配置resources节点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%85%8D%E7%BD%AEprofiles%E8%8A%82%E7%82%B9"><span class="nav-number">2.2.</span> <span class="nav-text">配置profiles节点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#IDEA%E4%B8%AD%E8%AE%BE%E7%BD%AE%E9%BB%98%E8%AE%A4%E7%8E%AF%E5%A2%83"><span class="nav-number">3.</span> <span class="nav-text">IDEA中设置默认环境</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Maven%E7%8E%AF%E5%A2%83%E9%9A%94%E7%A6%BB%E7%BC%96%E8%AF%91%E6%89%93%E5%8C%85%E5%91%BD%E4%BB%A4"><span class="nav-number">4.</span> <span class="nav-text">Maven环境隔离编译打包命令</span></a></li></ol></div>
             
 
           </div>
@@ -673,7 +677,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="Java IO," />
 
 
 
@@ -79,14 +79,17 @@
 
 
 
-<meta name="description" content="Just do it">
-<meta property="og:type" content="website">
-<meta property="og:title" content="codingShenZx&#39;s Blog">
-<meta property="og:url" content="http://codingshenzx.cn/archives/2019/index.html">
+<meta name="description" content="File类概述java.io.File类是文件和目录路径名的抽象表示形式。java把电脑中的文件和目录封装成了一个File类，我们可以使用File类对文件和文件夹进行操作：  创建一个文件或文件夹 删除一个文件或文件夹 获取一个文件或文件夹 判断一个文件或文件夹 对文件夹进行遍历 获取文件的大小  File类是一个与系统无关的类，任何的操作系统都可以使用这个类中的方法。在File类中，有三个重要概">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java File类">
+<meta property="og:url" content="http://codingshenzx.cn/Java-File%E7%B1%BB.html">
 <meta property="og:site_name" content="codingShenZx&#39;s Blog">
-<meta property="og:description" content="Just do it">
+<meta property="og:description" content="File类概述java.io.File类是文件和目录路径名的抽象表示形式。java把电脑中的文件和目录封装成了一个File类，我们可以使用File类对文件和文件夹进行操作：  创建一个文件或文件夹 删除一个文件或文件夹 获取一个文件或文件夹 判断一个文件或文件夹 对文件夹进行遍历 获取文件的大小  File类是一个与系统无关的类，任何的操作系统都可以使用这个类中的方法。在File类中，有三个重要概">
 <meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2021-03-05T14:57:53.000Z">
+<meta property="article:modified_time" content="2021-03-05T16:20:24.097Z">
 <meta property="article:author" content="codingShenZx">
+<meta property="article:tag" content="Java IO">
 <meta name="twitter:card" content="summary">
 
 
@@ -117,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://codingshenzx.cn/archives/2019/"/>
+  <link rel="canonical" href="http://codingshenzx.cn/Java-File类.html"/>
 
 
 
 
 
-  <title>Archive | codingShenZx's Blog</title>
+  <title>Java File类 | codingShenZx's Blog</title>
   
 
 
@@ -142,7 +145,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -270,74 +273,345 @@
           <div id="content" class="content">
             
 
+  <div id="posts" class="posts-expand">
+    
+
+  
+
   
   
   
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
-
-      <span class="archive-page-counter">
-        
-        
-        
-          
-        
-        Um..! 28 posts in total. Keep on posting.
-      </span>
-
-      
-
-        
-        
-        
-
-        
-          
-          <div class="collection-title">
-            <h2 class="archive-year" id="archive-year-2019">2019</h2>
-          </div>
-        
-        
-
-        
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://codingshenzx.cn/Java-File%E7%B1%BB.html">
 
-      <h3 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/avatar.jpg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="codingShenZx's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/%E5%8D%9A%E5%AE%A2%E5%86%85%E5%AE%B9%E8%B0%83%E6%95%B4%E8%AF%B4%E6%98%8E.html" itemprop="url">
-              
-                <span itemprop="name">博客内容调整说明</span>
-              
-            </a>
         
-      </h3>
+          <h2 class="post-title" itemprop="name headline">Java File类</h2>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-02-22T20:57:30+08:00"
-              content="2019-02-22" >
-          02-22
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2021-03-05T22:57:53+08:00">
+                2021-03-05
+              </time>
+            
 
-    </header>
-  </article>
+            
 
+            
+          </span>
 
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Words count in article&#58;</span>
+                
+                <span title="Words count in article">
+                  1.7k字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">Reading time &asymp;</span>
+                
+                <span title="Reading time">
+                  6分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
+      
 
+      
+        <h3 id="File类概述"><a href="#File类概述" class="headerlink" title="File类概述"></a>File类概述</h3><p><code>java.io.File</code>类是文件和目录路径名的抽象表示形式。java把电脑中的文件和目录封装成了一个<code>File</code>类，我们可以使用<code>File</code>类对文件和文件夹进行操作：</p>
+<ul>
+<li>创建一个文件或文件夹</li>
+<li>删除一个文件或文件夹</li>
+<li>获取一个文件或文件夹</li>
+<li>判断一个文件或文件夹</li>
+<li>对文件夹进行遍历</li>
+<li>获取文件的大小</li>
+</ul>
+<p><code>File</code>类是一个与系统无关的类，任何的操作系统都可以使用这个类中的方法。在<code>File</code>类中，有三个重要概念：</p>
+<ul>
+<li><code>file</code>：文件</li>
+<li><code>directory</code>：文件夹/目录</li>
+<li><code>path</code>：路径</li>
+</ul>
+<h3 id="File类的静态成员变量"><a href="#File类的静态成员变量" class="headerlink" title="File类的静态成员变量"></a>File类的静态成员变量</h3><table>
+<thead>
+<tr>
+<th>静态成员变量</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>File.pathSeparator</code></td>
+<td>与系统有关的路径分隔符，为了方便表示为字符串</td>
+</tr>
+<tr>
+<td><code>File.pathSeparatorChar</code></td>
+<td>与系统有关的路径分隔符</td>
+</tr>
+<tr>
+<td><code>File.separator</code></td>
+<td>与系统有关的默认名称分隔符，为了方便表示为字符串</td>
+</tr>
+<tr>
+<td><code>File.separatorChar</code></td>
+<td>与路径有关的路径分隔符</td>
+</tr>
+</tbody></table>
+<ul>
+<li>默认情况下，windows系统的默认路径分隔符为<code>;</code>，linux系统默认路径分隔符为<code>:</code>。</li>
+<li>默认情况下，windows系统的默认名称分隔符为<code>\</code>，linux系统默认名称分隔符为<code>/</code>。</li>
+</ul>
+<h3 id="绝对路径和相对路径"><a href="#绝对路径和相对路径" class="headerlink" title="绝对路径和相对路径"></a>绝对路径和相对路径</h3><p>路径不区分大小写，可以分为两种路径：绝对路径和相对路径</p>
+<ul>
+<li>绝对路径：是一个完整的路径，以盘符开始的路径。</li>
+<li>相对路径：是一个简化的路径，相对于当前项目的根目录，如果使用当前项目的根目录，则路径可以简化。</li>
+</ul>
+<h3 id="File类的构造方法"><a href="#File类的构造方法" class="headerlink" title="File类的构造方法"></a>File类的构造方法</h3><ul>
+<li><p><code>File(String pathname)</code>：通过将给定路径名字符串转换为抽象路径名来创建一个新File实例。</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>String pathname</code></td>
+<td><code>String pathname</code>：字符串的路径名称<br/> 路径可以是以文件结尾或文件夹结尾<br/> 路径可以是相对路径或绝对路径<br/>路径可以是存在或不存在<br/> 创建File对象，只是把字符串路径封装为<code>File</code>对象，不考虑路径的真假情况</td>
+</tr>
+</tbody></table>
+</li>
+<li><p><code>File(String parent, String child)</code>：根据parent路径名字字符串和child路径名字字符串创建了一个新File实例。</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>String parent, String child</code></td>
+<td>把路径分成了两部分 <br/> <code>String parent</code>：父路径<br/> <code>String child</code>：子路径<br/>好处：<br/>    父路径和子路径，可以单独书写，使用起来灵活；父子路径都可以变化</td>
+</tr>
+</tbody></table>
+</li>
+<li><p><code>File(File parent, String child)</code>：根据parent抽象路径和child路径名字字符串创建一个新File实例。</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>File parent, String child</code></td>
+<td>把路径分成了两部分<br/> <code>File parent</code>：父路径<br/> <code>String child</code>：子路径<br/> 好处：<br/>  父路径和子路径，可以单独书写，使用起来灵活；父路径和子路径都可以变化<br/>  父路径是<code>File</code>类型，可以使用<code>File</code>的方法对路径进行一些操作再使用路径创建对象</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h3 id="File类获取功能"><a href="#File类获取功能" class="headerlink" title="File类获取功能"></a>File类获取功能</h3><ul>
+<li><code>public String getAbsolutePath()</code>：返回此File的绝对路径名字符串，获取构造方法中传递的路径，无论是绝对路径还是相对路径，返回的都是绝对路径。</li>
+<li><code>public String getPath()</code>：将此File转换为路径名字符串，即获取构造方法中传递的路径，传递的路径是什么样就返回什么样的路径。<br><code>public String getName()</code>：返回由此File表示的文件或文件夹(目录)的名称，获取的就是构造方法传递路径的结尾部分（文件，文件夹）<br><code>public long length()</code>：返回由此File表示的文件的长度(大小)，获取的构造方法指定的文件的大小，以字节为单位。<strong>注意，文件夹是没有大小概念的，不能获取文件夹大小。如果构造方法中给出的路径不存在，那么length方法返回零</strong>。</li>
+</ul>
+<h3 id="File判断功能"><a href="#File判断功能" class="headerlink" title="File判断功能"></a>File判断功能</h3><ul>
+<li><p><code>public boolean exists()</code>：此File表示的文件或目录是否实际存在。用于判断构造方法中的路径是否存在，存在则为true，不存在则为false。</p>
+</li>
+<li><p><code>public boolean isDirectory()</code>：用于判断构造方法中给定的路径是否以文件夹结尾。如果是返回true，否则返回false</p>
+</li>
+<li><p><code>public  boolean isFile()</code>：此<code>File</code>表示的是否为文件，用于判断构造方法中给定的路径是否以文件结尾。如果是返回true，否则返回false。</p>
+</li>
+</ul>
+<p><code>isDirectory()</code>和<code>isFile()</code>使用的前提是路径必须存在，否则都返回false。由于电脑中只有文件或文件夹，因此，这两个方法是互斥的。</p>
+<h3 id="File类创建删除功能"><a href="#File类创建删除功能" class="headerlink" title="File类创建删除功能"></a>File类创建删除功能</h3><ul>
+<li><p><code>public boolean createNewFile()</code>：当且仅当具有该名称的文件不存在时，创建一个新的空文件。</p>
+<table>
+<thead>
+<tr>
+<th>说明</th>
+<th>注意事项</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当且仅当具有该名称的文件不存在时，创建一个新的空文件。<br/>创建文件的路径和名称在构造方法中给出，<br/>返回值：    true，文件不存在，创建文件返回true；<br/>        false,文件存在，不会创建</td>
+<td>此方法只能创建文件，不能创建文件夹，<br/>创建文件的路径必须存在，否则会抛出异常。</td>
+</tr>
+</tbody></table>
+</li>
+<li><p><code>public boolean delete()</code>：删除由此<code>File</code>表示的文件或目录。</p>
+<table>
+<thead>
+<tr>
+<th>说明</th>
+<th>注意事项</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>当且仅当具有该名称的文件不存在时，创建一个新的空文件。<br/>创建文件的路径和名称在构造方法中给出，<br/>返回值：<br/>        true，文件不存在，创建文件返回true；<br/>        false,文件存在，不会创建</td>
+<td>此方法只能创建文件，不能创建文件夹，<br/>创建文件的路径必须存在，否则会抛出异常。</td>
+</tr>
+</tbody></table>
+</li>
+<li><p><code>public boolean mkdir()</code>：创建由此<code>File</code>表示的目录。</p>
+<table>
+<thead>
+<tr>
+<th>说明</th>
+<th>注意事项</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>创建文件夹的路径和名称在构造方法中给出，<br/>返回值：<br/>      true，文件夹不存在，创建文件夹返回true；<br/>      false,文件夹存在，不会创建；构造方法中给出的路径不存在返回false</td>
+<td>此方法只能创建文件夹，不能创建文件</td>
+</tr>
+</tbody></table>
+</li>
+<li><p><code>public boolean mkdirs()</code>：创建由此<code>File</code>表示的目录，包括任何必须但不存在的父目录</p>
+</li>
+</ul>
+<h3 id="File类目录的遍历功能"><a href="#File类目录的遍历功能" class="headerlink" title="File类目录的遍历功能"></a>File类目录的遍历功能</h3><p><code>File</code>类遍历目录（文件夹）的方法有两个：</p>
+<ul>
+<li><p><code>public String[] list() </code>：返回一个<code>String</code>数组，表示该<code>File</code>目录中的所有子文件或目录。</p>
+</li>
+<li><p><code>public File[] listFiles()</code>：返回一个<code>File</code>数组，表示该<code>File</code>目录中的所有子文件或目录。</p>
+<table>
+<thead>
+<tr>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>list()</code>和<code>listFiles()</code>遍历的是构造方法中给出的目录，<br/>如果构造方法给出的目录的路径不存在，会抛出空指针异常。<br/>如果构造方法给出的路径不是一个目录，也会抛出空指针异常。</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+
+      
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java-IO/" rel="tag"># Java IO</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/%E5%8D%9A%E5%AE%A2%E5%86%85%E5%AE%B9%E8%B0%83%E6%95%B4%E8%AF%B4%E6%98%8E.html" rel="next" title="博客内容调整说明">
+                <i class="fa fa-chevron-left"></i> 博客内容调整说明
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -345,6 +619,10 @@
 
 
           
+
+  
+
+
 
         </div>
         
@@ -365,8 +643,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -458,6 +745,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#File%E7%B1%BB%E6%A6%82%E8%BF%B0"><span class="nav-number">1.</span> <span class="nav-text">File类概述</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#File%E7%B1%BB%E7%9A%84%E9%9D%99%E6%80%81%E6%88%90%E5%91%98%E5%8F%98%E9%87%8F"><span class="nav-number">2.</span> <span class="nav-text">File类的静态成员变量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BB%9D%E5%AF%B9%E8%B7%AF%E5%BE%84%E5%92%8C%E7%9B%B8%E5%AF%B9%E8%B7%AF%E5%BE%84"><span class="nav-number">3.</span> <span class="nav-text">绝对路径和相对路径</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#File%E7%B1%BB%E7%9A%84%E6%9E%84%E9%80%A0%E6%96%B9%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">File类的构造方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#File%E7%B1%BB%E8%8E%B7%E5%8F%96%E5%8A%9F%E8%83%BD"><span class="nav-number">5.</span> <span class="nav-text">File类获取功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#File%E5%88%A4%E6%96%AD%E5%8A%9F%E8%83%BD"><span class="nav-number">6.</span> <span class="nav-text">File判断功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#File%E7%B1%BB%E5%88%9B%E5%BB%BA%E5%88%A0%E9%99%A4%E5%8A%9F%E8%83%BD"><span class="nav-number">7.</span> <span class="nav-text">File类创建删除功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#File%E7%B1%BB%E7%9B%AE%E5%BD%95%E7%9A%84%E9%81%8D%E5%8E%86%E5%8A%9F%E8%83%BD"><span class="nav-number">8.</span> <span class="nav-text">File类目录的遍历功能</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -597,6 +900,10 @@
   
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
 
   
 

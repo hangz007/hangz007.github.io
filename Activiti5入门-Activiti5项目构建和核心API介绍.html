@@ -6,10 +6,10 @@
 
 
 <html class="theme-next muse use-motion" lang="en">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
 
 
@@ -20,8 +20,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
@@ -40,7 +40,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
@@ -48,9 +48,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Activiti5入门,">
+  <meta name="keywords" content="Activiti5入门," />
 
 
 
@@ -79,22 +79,22 @@
 
 
 
-<meta name="description" content="上篇介绍了如何安装Activiti的IDE插件，本篇将介绍Activiti项目的构建和核心API。 项目初始化创建项目选择菜单File-&amp;gt;New-&amp;gt;Other…，创建Activiti Project  此时，生成一个类似Maven项目结构的Activiti项目，其src/main/resources目录下存在一个名为diagrams的包 导入Activiti项目相关jar包 选中项目，">
-<meta name="keywords" content="Activiti5入门">
+<meta name="description" content="上篇介绍了如何安装Activiti的IDE插件，本篇将介绍Activiti项目的构建和核心API。 项目初始化创建项目选择菜单File-&gt;New-&gt;Other…，创建Activiti Project  此时，生成一个类似Maven项目结构的Activiti项目，其src&#x2F;main&#x2F;resources目录下存在一个名为diagrams的包 导入Activiti项目相关jar包 选中项目，">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Activiti5入门--Activiti5项目构建和核心API介绍">
-<meta property="og:url" content="http://codingshenzx.cn/Activiti5入门-Activiti5项目构建和核心API介绍.html">
+<meta property="og:url" content="http://codingshenzx.cn/Activiti5%E5%85%A5%E9%97%A8-Activiti5%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%92%8C%E6%A0%B8%E5%BF%83API%E4%BB%8B%E7%BB%8D.html">
 <meta property="og:site_name" content="codingShenZx&#39;s Blog">
-<meta property="og:description" content="上篇介绍了如何安装Activiti的IDE插件，本篇将介绍Activiti项目的构建和核心API。 项目初始化创建项目选择菜单File-&amp;gt;New-&amp;gt;Other…，创建Activiti Project  此时，生成一个类似Maven项目结构的Activiti项目，其src/main/resources目录下存在一个名为diagrams的包 导入Activiti项目相关jar包 选中项目，">
-<meta property="og:locale" content="en">
+<meta property="og:description" content="上篇介绍了如何安装Activiti的IDE插件，本篇将介绍Activiti项目的构建和核心API。 项目初始化创建项目选择菜单File-&gt;New-&gt;Other…，创建Activiti Project  此时，生成一个类似Maven项目结构的Activiti项目，其src&#x2F;main&#x2F;resources目录下存在一个名为diagrams的包 导入Activiti项目相关jar包 选中项目，">
+<meta property="og:locale" content="en_US">
 <meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/Activiti%E9%A1%B9%E7%9B%AE%E5%88%9B%E5%BB%BA.png">
 <meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/Activiti%E9%A1%B9%E7%9B%AE%E6%89%80%E9%9C%80jar%E5%8C%85.png">
 <meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E6%89%80%E9%9C%80jar%E5%8C%852.png">
 <meta property="og:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/mysql%E7%9A%84jar%E5%8C%85.png">
-<meta property="og:updated_time" content="2019-12-17T12:06:08.591Z">
+<meta property="article:published_time" content="2018-06-24T14:20:52.000Z">
+<meta property="article:modified_time" content="2021-01-01T09:20:57.431Z">
+<meta property="article:author" content="codingShenZx">
+<meta property="article:tag" content="Activiti5入门">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Activiti5入门--Activiti5项目构建和核心API介绍">
-<meta name="twitter:description" content="上篇介绍了如何安装Activiti的IDE插件，本篇将介绍Activiti项目的构建和核心API。 项目初始化创建项目选择菜单File-&amp;gt;New-&amp;gt;Other…，创建Activiti Project  此时，生成一个类似Maven项目结构的Activiti项目，其src/main/resources目录下存在一个名为diagrams的包 导入Activiti项目相关jar包 选中项目，">
 <meta name="twitter:image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/Activiti%E9%A1%B9%E7%9B%AE%E5%88%9B%E5%BB%BA.png">
 
 
@@ -102,7 +102,7 @@
 <script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Muse',
     version: '5.1.3',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
@@ -125,7 +125,7 @@
 
 
 
-  <link rel="canonical" href="http://codingshenzx.cn/Activiti5入门-Activiti5项目构建和核心API介绍.html">
+  <link rel="canonical" href="http://codingshenzx.cn/Activiti5入门-Activiti5项目构建和核心API介绍.html"/>
 
 
 
@@ -141,7 +141,7 @@
 
 
 
-</head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
 
@@ -159,7 +159,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
+      <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">codingShenZx's Blog</span>
         <span class="logo-line-after"><i></i></span>
@@ -189,7 +189,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
             Home
           </a>
@@ -199,7 +199,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
             Tags
           </a>
@@ -209,7 +209,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
             Categories
           </a>
@@ -219,7 +219,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             Archives
           </a>
@@ -232,7 +232,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
             
             Search
           </a>
@@ -253,7 +253,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -290,11 +292,11 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://codingshenzx.cn/Activiti5入门-Activiti5项目构建和核心API介绍.html">
+    <link itemprop="mainEntityOfPage" href="http://codingshenzx.cn/Activiti5%E5%85%A5%E9%97%A8-Activiti5%E9%A1%B9%E7%9B%AE%E6%9E%84%E5%BB%BA%E5%92%8C%E6%A0%B8%E5%BF%83API%E4%BB%8B%E7%BB%8D.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="codingShenZx">
-      <meta itemprop="description" content>
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/avatar.jpg">
     </span>
 
@@ -330,7 +332,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -445,7 +447,7 @@
 <p>密码：fre5</p>
 <h3 id="定义配置文件"><a href="#定义配置文件" class="headerlink" title="定义配置文件"></a>定义配置文件</h3><p>在上一节中，学习了使用代码生成数据库表以及获取流程引擎，本节将引入一个配置文件<em>activiti.cfg.xml</em>。</p>
 <p>继续上一节的项目，在<code>src/main/resources</code>下添加文件<em>activiti.cfg.xml</em>，定义数据库的连接配置和建表策略</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span> <span class="attr">xmlns:tx</span>=<span class="string">"http://www.springframework.org/schema/tx"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 流程引擎配置 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"processEngineConfiguration"</span> <span class="attr">class</span>=<span class="string">"org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration"</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!--数据库配置--&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jdbcDriver"</span> <span class="attr">value</span>=<span class="string">"com.mysql.jdbc.Driver"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jdbcUrl"</span> <span class="attr">value</span>=<span class="string">"jdbc:mysql://localhost:3306/activiti?useUnicode=true<span class="symbol">&amp;amp;</span>characterEncoding=utf8"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jdbcUsername"</span> <span class="attr">value</span>=<span class="string">"root"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jdbcPassword"</span> <span class="attr">value</span>=<span class="string">"123456"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 没有表,创建表 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"databaseSchemaUpdate"</span> <span class="attr">value</span>=<span class="string">"true"</span> &gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">beans</span> <span class="attr">xmlns</span>=<span class="string">"http://www.springframework.org/schema/beans"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns:context</span>=<span class="string">"http://www.springframework.org/schema/context"</span> <span class="attr">xmlns:tx</span>=<span class="string">"http://www.springframework.org/schema/tx"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-2.5.xsd</span></span></span><br><span class="line"><span class="tag"><span class="string">http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- 流程引擎配置 --&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"processEngineConfiguration"</span> <span class="attr">class</span>=<span class="string">"org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration"</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!--数据库配置--&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jdbcDriver"</span> <span class="attr">value</span>=<span class="string">"com.mysql.jdbc.Driver"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jdbcUrl"</span> <span class="attr">value</span>=<span class="string">"jdbc:mysql://localhost:3306/activiti?useUnicode=true&amp;amp;characterEncoding=utf8"</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jdbcUsername"</span> <span class="attr">value</span>=<span class="string">"root"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"jdbcPassword"</span> <span class="attr">value</span>=<span class="string">"123456"</span>&gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- 没有表,创建表 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"databaseSchemaUpdate"</span> <span class="attr">value</span>=<span class="string">"true"</span> &gt;</span><span class="tag">&lt;/<span class="name">property</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">beans</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>对比上一节中的代码，可以发现，两者的配置是一致的。</p>
 <p>在<em>TestActiviti</em>中增加测试方法<em>createTable2</em>，获取流程引擎配置对象</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">createTable2</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	ProcessEngine processEngine = ProcessEngineConfiguration</span><br><span class="line">			.createProcessEngineConfigurationFromResource(<span class="string">"activiti.cfg.xml"</span>).buildProcessEngine();</span><br><span class="line">	System.out.println(<span class="string">"processEngine="</span>+processEngine);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -513,7 +515,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Activiti5入门/" rel="tag"># Activiti5入门</a>
+            <a href="/tags/Activiti5%E5%85%A5%E9%97%A8/" rel="tag"># Activiti5入门</a>
           
         </div>
       
@@ -526,7 +528,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/Activiti5入门-开发前的准备.html" rel="next" title="Activiti5入门--开发前的准备">
+              <a href="/Activiti5%E5%85%A5%E9%97%A8-%E5%BC%80%E5%8F%91%E5%89%8D%E7%9A%84%E5%87%86%E5%A4%87.html" rel="next" title="Activiti5入门--开发前的准备">
                 <i class="fa fa-chevron-left"></i> Activiti5入门--开发前的准备
               </a>
             
@@ -536,7 +538,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/Activiti5入门-HelloWorld程序演示流程执行.html" rel="prev" title="Activiti5入门--HelloWorld程序演示流程执行">
+              <a href="/Activiti5%E5%85%A5%E9%97%A8-HelloWorld%E7%A8%8B%E5%BA%8F%E6%BC%94%E7%A4%BA%E6%B5%81%E7%A8%8B%E6%89%A7%E8%A1%8C.html" rel="prev" title="Activiti5入门--HelloWorld程序演示流程执行">
                 Activiti5入门--HelloWorld程序演示流程执行 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -604,9 +606,11 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/avatar.jpg" alt="codingShenZx">
+              <img class="site-author-image" itemprop="image"
+                src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/avatar.jpg"
+                alt="" />
             
-              <p class="site-author-name" itemprop="name">codingShenZx</p>
+              <p class="site-author-name" itemprop="name"></p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
@@ -615,9 +619,9 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/archives/">
+                <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -639,7 +643,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -700,7 +704,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#项目初始化"><span class="nav-number">1.</span> <span class="nav-text">项目初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#创建项目"><span class="nav-number">1.1.</span> <span class="nav-text">创建项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#导入Activiti项目相关jar包"><span class="nav-number">1.2.</span> <span class="nav-text">导入Activiti项目相关jar包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#生成Activiti相关数据表及其核心对象"><span class="nav-number">1.3.</span> <span class="nav-text">生成Activiti相关数据表及其核心对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#小结"><span class="nav-number">1.4.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#项目所用到的jar包"><span class="nav-number">1.5.</span> <span class="nav-text">项目所用到的jar包</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#定义配置文件"><span class="nav-number">2.</span> <span class="nav-text">定义配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#流程引擎的作用"><span class="nav-number">3.</span> <span class="nav-text">流程引擎的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="nav-number">1.</span> <span class="nav-text">项目初始化</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.1.</span> <span class="nav-text">创建项目</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%BC%E5%85%A5Activiti%E9%A1%B9%E7%9B%AE%E7%9B%B8%E5%85%B3jar%E5%8C%85"><span class="nav-number">1.2.</span> <span class="nav-text">导入Activiti项目相关jar包</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%94%9F%E6%88%90Activiti%E7%9B%B8%E5%85%B3%E6%95%B0%E6%8D%AE%E8%A1%A8%E5%8F%8A%E5%85%B6%E6%A0%B8%E5%BF%83%E5%AF%B9%E8%B1%A1"><span class="nav-number">1.3.</span> <span class="nav-text">生成Activiti相关数据表及其核心对象</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">1.4.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%A1%B9%E7%9B%AE%E6%89%80%E7%94%A8%E5%88%B0%E7%9A%84jar%E5%8C%85"><span class="nav-number">1.5.</span> <span class="nav-text">项目所用到的jar包</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">定义配置文件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B5%81%E7%A8%8B%E5%BC%95%E6%93%8E%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">3.</span> <span class="nav-text">流程引擎的作用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -720,7 +724,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

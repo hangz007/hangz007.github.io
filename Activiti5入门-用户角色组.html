@@ -6,10 +6,10 @@
 
 
 <html class="theme-next muse use-motion" lang="en">
-<head><meta name="generator" content="Hexo 3.9.0">
-  <meta charset="UTF-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
 <meta name="theme-color" content="#222">
 
 
@@ -20,8 +20,8 @@
 
 
 
-<meta http-equiv="Cache-Control" content="no-transform">
-<meta http-equiv="Cache-Control" content="no-siteapp">
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
 
 
 
@@ -40,7 +40,7 @@
 
   
   
-  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
 
 
 
@@ -48,9 +48,9 @@
 
 
 
-<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css">
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
 
 
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Activiti5入门,">
+  <meta name="keywords" content="Activiti5入门," />
 
 
 
@@ -80,23 +80,23 @@
 
 
 <meta name="description" content="本章是Activiti的最后一章，我们开始学习Activiti提供的用户角色组。通过它，流程能够根据用户角色选择办理人完成用户任务。为了便于学习，我们新建包cn.demo.groupuser，类TaskTest，流程图文件task.bpmn。 定义审批流程和前面一样，我们定义一个审批流程，该审批用户任务节点设置Candidate-groups的值为部门经理，当流程执行到此用户任务节点时，只有角色为">
-<meta name="keywords" content="Activiti5入门">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Activiti5入门--用户角色组">
-<meta property="og:url" content="http://codingshenzx.cn/Activiti5入门-用户角色组.html">
+<meta property="og:url" content="http://codingshenzx.cn/Activiti5%E5%85%A5%E9%97%A8-%E7%94%A8%E6%88%B7%E8%A7%92%E8%89%B2%E7%BB%84.html">
 <meta property="og:site_name" content="codingShenZx&#39;s Blog">
 <meta property="og:description" content="本章是Activiti的最后一章，我们开始学习Activiti提供的用户角色组。通过它，流程能够根据用户角色选择办理人完成用户任务。为了便于学习，我们新建包cn.demo.groupuser，类TaskTest，流程图文件task.bpmn。 定义审批流程和前面一样，我们定义一个审批流程，该审批用户任务节点设置Candidate-groups的值为部门经理，当流程执行到此用户任务节点时，只有角色为">
-<meta property="og:locale" content="en">
+<meta property="og:locale" content="en_US">
 <meta property="og:image" content="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E7%94%A8%E6%88%B7%E8%A7%92%E8%89%B2%E7%BB%84/%E7%94%A8%E6%88%B7%E7%BB%84%E8%A7%92%E8%89%B2%E8%AE%BE%E7%BD%AE.png">
 <meta property="og:image" content="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E7%94%A8%E6%88%B7%E8%A7%92%E8%89%B2%E7%BB%84/%E8%A7%92%E8%89%B2%E8%A1%A8.png">
 <meta property="og:image" content="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E7%94%A8%E6%88%B7%E8%A7%92%E8%89%B2%E7%BB%84/%E7%94%A8%E6%88%B7%E8%A1%A8.png">
 <meta property="og:image" content="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E7%94%A8%E6%88%B7%E8%A7%92%E8%89%B2%E7%BB%84/%E7%94%A8%E6%88%B7%E8%A7%92%E8%89%B2%E8%A1%A8.png">
 <meta property="og:image" content="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E7%94%A8%E6%88%B7%E8%A7%92%E8%89%B2%E7%BB%84/%E4%BB%BB%E5%8A%A1%E5%8A%9E%E7%90%86%E4%BA%BA%E8%A1%A8.png">
 <meta property="og:image" content="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E7%94%A8%E6%88%B7%E8%A7%92%E8%89%B2%E7%BB%84/%E5%8E%86%E5%8F%B2%E4%BB%BB%E5%8A%A1%E5%8A%9E%E7%90%86%E4%BA%BA%E8%A1%A8.png">
-<meta property="og:updated_time" content="2019-12-17T12:06:08.606Z">
+<meta property="article:published_time" content="2018-10-31T11:26:36.000Z">
+<meta property="article:modified_time" content="2021-01-01T09:20:57.440Z">
+<meta property="article:author" content="codingShenZx">
+<meta property="article:tag" content="Activiti5入门">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Activiti5入门--用户角色组">
-<meta name="twitter:description" content="本章是Activiti的最后一章，我们开始学习Activiti提供的用户角色组。通过它，流程能够根据用户角色选择办理人完成用户任务。为了便于学习，我们新建包cn.demo.groupuser，类TaskTest，流程图文件task.bpmn。 定义审批流程和前面一样，我们定义一个审批流程，该审批用户任务节点设置Candidate-groups的值为部门经理，当流程执行到此用户任务节点时，只有角色为">
 <meta name="twitter:image" content="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E7%94%A8%E6%88%B7%E8%A7%92%E8%89%B2%E7%BB%84/%E7%94%A8%E6%88%B7%E7%BB%84%E8%A7%92%E8%89%B2%E8%AE%BE%E7%BD%AE.png">
 
 
@@ -104,7 +104,7 @@
 <script type="text/javascript" id="hexo.configurations">
   var NexT = window.NexT || {};
   var CONFIG = {
-    root: '/',
+    root: '',
     scheme: 'Muse',
     version: '5.1.3',
     sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
@@ -127,7 +127,7 @@
 
 
 
-  <link rel="canonical" href="http://codingshenzx.cn/Activiti5入门-用户角色组.html">
+  <link rel="canonical" href="http://codingshenzx.cn/Activiti5入门-用户角色组.html"/>
 
 
 
@@ -143,7 +143,7 @@
 
 
 
-</head>
+<meta name="generator" content="Hexo 5.4.0"></head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="en">
 
@@ -161,7 +161,7 @@
     
 
     <div class="custom-logo-site-title">
-      <a href="/" class="brand" rel="start">
+      <a href="/"  class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
         <span class="site-title">codingShenZx's Blog</span>
         <span class="logo-line-after"><i></i></span>
@@ -191,7 +191,7 @@
         <li class="menu-item menu-item-home">
           <a href="/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
             Home
           </a>
@@ -201,7 +201,7 @@
         <li class="menu-item menu-item-tags">
           <a href="/tags/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
             Tags
           </a>
@@ -211,7 +211,7 @@
         <li class="menu-item menu-item-categories">
           <a href="/categories/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-th"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
             
             Categories
           </a>
@@ -221,7 +221,7 @@
         <li class="menu-item menu-item-archives">
           <a href="/archives/" rel="section">
             
-              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
             Archives
           </a>
@@ -234,7 +234,7 @@
             <a href="javascript:;" class="popup-trigger">
           
             
-              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
             
             Search
           </a>
@@ -255,7 +255,9 @@
       <i class="fa fa-times-circle"></i>
     </span>
     <div class="local-search-input-wrapper">
-      <input autocomplete="off" placeholder="Searching..." spellcheck="false" type="text" id="local-search-input">
+      <input autocomplete="off"
+             placeholder="Searching..." spellcheck="false"
+             type="text" id="local-search-input">
     </div>
   </div>
   <div id="local-search-result"></div>
@@ -292,11 +294,11 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://codingshenzx.cn/Activiti5入门-用户角色组.html">
+    <link itemprop="mainEntityOfPage" href="http://codingshenzx.cn/Activiti5%E5%85%A5%E9%97%A8-%E7%94%A8%E6%88%B7%E8%A7%92%E8%89%B2%E7%BB%84.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="codingShenZx">
-      <meta itemprop="description" content>
+      <meta itemprop="name" content="">
+      <meta itemprop="description" content="">
       <meta itemprop="image" content="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/avatar.jpg">
     </span>
 
@@ -332,7 +334,7 @@
           </span>
 
           
-            <span class="post-category">
+            <span class="post-category" >
             
               <span class="post-meta-divider">|</span>
             
@@ -416,7 +418,7 @@
 <h3 id="定义审批流程"><a href="#定义审批流程" class="headerlink" title="定义审批流程"></a>定义审批流程</h3><p>和前面一样，我们定义一个<strong>审批</strong>流程，该<strong>审批</strong>用户任务节点设置Candidate-groups的值为<strong>部门经理</strong>，当流程执行到此用户任务节点时，只有角色为部门经理的人才能查询和完成该任务。</p>
 <p><img src="http://east-hexo.oss-cn-hangzhou.aliyuncs.com/%E5%B7%A5%E4%BD%9C%E6%B5%81/%E7%94%A8%E6%88%B7%E8%A7%92%E8%89%B2%E7%BB%84/%E7%94%A8%E6%88%B7%E7%BB%84%E8%A7%92%E8%89%B2%E8%AE%BE%E7%BD%AE.png" alt="用户角色组"></p>
 <p>查看<strong>task.bpmn文件</strong></p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">definitions</span> <span class="attr">xmlns</span>=<span class="string">"http://www.omg.org/spec/BPMN/20100524/MODEL"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="attr">xmlns:xsd</span>=<span class="string">"http://www.w3.org/2001/XMLSchema"</span> <span class="attr">xmlns:activiti</span>=<span class="string">"http://activiti.org/bpmn"</span> <span class="attr">xmlns:bpmndi</span>=<span class="string">"http://www.omg.org/spec/BPMN/20100524/DI"</span> <span class="attr">xmlns:omgdc</span>=<span class="string">"http://www.omg.org/spec/DD/20100524/DC"</span> <span class="attr">xmlns:omgdi</span>=<span class="string">"http://www.omg.org/spec/DD/20100524/DI"</span> <span class="attr">typeLanguage</span>=<span class="string">"http://www.w3.org/2001/XMLSchema"</span> <span class="attr">expressionLanguage</span>=<span class="string">"http://www.w3.org/1999/XPath"</span> <span class="attr">targetNamespace</span>=<span class="string">"http://www.activiti.org/test"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">process</span> <span class="attr">id</span>=<span class="string">"task"</span> <span class="attr">name</span>=<span class="string">"taskProcess"</span> <span class="attr">isExecutable</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">startEvent</span> <span class="attr">id</span>=<span class="string">"startevent1"</span> <span class="attr">name</span>=<span class="string">"Start"</span>&gt;</span><span class="tag">&lt;/<span class="name">startEvent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">userTask</span> <span class="attr">id</span>=<span class="string">"usertask1"</span> <span class="attr">name</span>=<span class="string">"审批"</span> <span class="attr">activiti:candidateGroups</span>=<span class="string">"部门经理"</span>&gt;</span><span class="tag">&lt;/<span class="name">userTask</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">endEvent</span> <span class="attr">id</span>=<span class="string">"endevent1"</span> <span class="attr">name</span>=<span class="string">"End"</span>&gt;</span><span class="tag">&lt;/<span class="name">endEvent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sequenceFlow</span> <span class="attr">id</span>=<span class="string">"flow1"</span> <span class="attr">sourceRef</span>=<span class="string">"startevent1"</span> <span class="attr">targetRef</span>=<span class="string">"usertask1"</span>&gt;</span><span class="tag">&lt;/<span class="name">sequenceFlow</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sequenceFlow</span> <span class="attr">id</span>=<span class="string">"flow2"</span> <span class="attr">sourceRef</span>=<span class="string">"usertask1"</span> <span class="attr">targetRef</span>=<span class="string">"endevent1"</span>&gt;</span><span class="tag">&lt;/<span class="name">sequenceFlow</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">process</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">bpmndi:BPMNDiagram</span> <span class="attr">id</span>=<span class="string">"BPMNDiagram_task"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bpmndi:BPMNPlane</span> <span class="attr">bpmnElement</span>=<span class="string">"task"</span> <span class="attr">id</span>=<span class="string">"BPMNPlane_task"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmndi:BPMNShape</span> <span class="attr">bpmnElement</span>=<span class="string">"startevent1"</span> <span class="attr">id</span>=<span class="string">"BPMNShape_startevent1"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">omgdc:Bounds</span> <span class="attr">height</span>=<span class="string">"35.0"</span> <span class="attr">width</span>=<span class="string">"35.0"</span> <span class="attr">x</span>=<span class="string">"360.0"</span> <span class="attr">y</span>=<span class="string">"20.0"</span>&gt;</span><span class="tag">&lt;/<span class="name">omgdc:Bounds</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNShape</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmndi:BPMNShape</span> <span class="attr">bpmnElement</span>=<span class="string">"usertask1"</span> <span class="attr">id</span>=<span class="string">"BPMNShape_usertask1"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">omgdc:Bounds</span> <span class="attr">height</span>=<span class="string">"55.0"</span> <span class="attr">width</span>=<span class="string">"105.0"</span> <span class="attr">x</span>=<span class="string">"325.0"</span> <span class="attr">y</span>=<span class="string">"120.0"</span>&gt;</span><span class="tag">&lt;/<span class="name">omgdc:Bounds</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNShape</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmndi:BPMNShape</span> <span class="attr">bpmnElement</span>=<span class="string">"endevent1"</span> <span class="attr">id</span>=<span class="string">"BPMNShape_endevent1"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">omgdc:Bounds</span> <span class="attr">height</span>=<span class="string">"35.0"</span> <span class="attr">width</span>=<span class="string">"35.0"</span> <span class="attr">x</span>=<span class="string">"360.0"</span> <span class="attr">y</span>=<span class="string">"240.0"</span>&gt;</span><span class="tag">&lt;/<span class="name">omgdc:Bounds</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNShape</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmndi:BPMNEdge</span> <span class="attr">bpmnElement</span>=<span class="string">"flow1"</span> <span class="attr">id</span>=<span class="string">"BPMNEdge_flow1"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">omgdi:waypoint</span> <span class="attr">x</span>=<span class="string">"377.0"</span> <span class="attr">y</span>=<span class="string">"55.0"</span>&gt;</span><span class="tag">&lt;/<span class="name">omgdi:waypoint</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">omgdi:waypoint</span> <span class="attr">x</span>=<span class="string">"377.0"</span> <span class="attr">y</span>=<span class="string">"120.0"</span>&gt;</span><span class="tag">&lt;/<span class="name">omgdi:waypoint</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNEdge</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmndi:BPMNEdge</span> <span class="attr">bpmnElement</span>=<span class="string">"flow2"</span> <span class="attr">id</span>=<span class="string">"BPMNEdge_flow2"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">omgdi:waypoint</span> <span class="attr">x</span>=<span class="string">"377.0"</span> <span class="attr">y</span>=<span class="string">"175.0"</span>&gt;</span><span class="tag">&lt;/<span class="name">omgdi:waypoint</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">omgdi:waypoint</span> <span class="attr">x</span>=<span class="string">"377.0"</span> <span class="attr">y</span>=<span class="string">"240.0"</span>&gt;</span><span class="tag">&lt;/<span class="name">omgdi:waypoint</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNEdge</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bpmndi:BPMNPlane</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">bpmndi:BPMNDiagram</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">definitions</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">definitions</span> <span class="attr">xmlns</span>=<span class="string">"http://www.omg.org/spec/BPMN/20100524/MODEL"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="attr">xmlns:xsd</span>=<span class="string">"http://www.w3.org/2001/XMLSchema"</span> <span class="attr">xmlns:activiti</span>=<span class="string">"http://activiti.org/bpmn"</span> <span class="attr">xmlns:bpmndi</span>=<span class="string">"http://www.omg.org/spec/BPMN/20100524/DI"</span> <span class="attr">xmlns:omgdc</span>=<span class="string">"http://www.omg.org/spec/DD/20100524/DC"</span> <span class="attr">xmlns:omgdi</span>=<span class="string">"http://www.omg.org/spec/DD/20100524/DI"</span> <span class="attr">typeLanguage</span>=<span class="string">"http://www.w3.org/2001/XMLSchema"</span> <span class="attr">expressionLanguage</span>=<span class="string">"http://www.w3.org/1999/XPath"</span> <span class="attr">targetNamespace</span>=<span class="string">"http://www.activiti.org/test"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">process</span> <span class="attr">id</span>=<span class="string">"task"</span> <span class="attr">name</span>=<span class="string">"taskProcess"</span> <span class="attr">isExecutable</span>=<span class="string">"true"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">startEvent</span> <span class="attr">id</span>=<span class="string">"startevent1"</span> <span class="attr">name</span>=<span class="string">"Start"</span>&gt;</span><span class="tag">&lt;/<span class="name">startEvent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">userTask</span> <span class="attr">id</span>=<span class="string">"usertask1"</span> <span class="attr">name</span>=<span class="string">"审批"</span> <span class="attr">activiti:candidateGroups</span>=<span class="string">"部门经理"</span>&gt;</span><span class="tag">&lt;/<span class="name">userTask</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">endEvent</span> <span class="attr">id</span>=<span class="string">"endevent1"</span> <span class="attr">name</span>=<span class="string">"End"</span>&gt;</span><span class="tag">&lt;/<span class="name">endEvent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sequenceFlow</span> <span class="attr">id</span>=<span class="string">"flow1"</span> <span class="attr">sourceRef</span>=<span class="string">"startevent1"</span> <span class="attr">targetRef</span>=<span class="string">"usertask1"</span>&gt;</span><span class="tag">&lt;/<span class="name">sequenceFlow</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sequenceFlow</span> <span class="attr">id</span>=<span class="string">"flow2"</span> <span class="attr">sourceRef</span>=<span class="string">"usertask1"</span> <span class="attr">targetRef</span>=<span class="string">"endevent1"</span>&gt;</span><span class="tag">&lt;/<span class="name">sequenceFlow</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">process</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">bpmndi:BPMNDiagram</span> <span class="attr">id</span>=<span class="string">"BPMNDiagram_task"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">bpmndi:BPMNPlane</span> <span class="attr">bpmnElement</span>=<span class="string">"task"</span> <span class="attr">id</span>=<span class="string">"BPMNPlane_task"</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmndi:BPMNShape</span> <span class="attr">bpmnElement</span>=<span class="string">"startevent1"</span> <span class="attr">id</span>=<span class="string">"BPMNShape_startevent1"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">omgdc:Bounds</span> <span class="attr">height</span>=<span class="string">"35.0"</span> <span class="attr">width</span>=<span class="string">"35.0"</span> <span class="attr">x</span>=<span class="string">"360.0"</span> <span class="attr">y</span>=<span class="string">"20.0"</span>&gt;</span><span class="tag">&lt;/<span class="name">omgdc:Bounds</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNShape</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmndi:BPMNShape</span> <span class="attr">bpmnElement</span>=<span class="string">"usertask1"</span> <span class="attr">id</span>=<span class="string">"BPMNShape_usertask1"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">omgdc:Bounds</span> <span class="attr">height</span>=<span class="string">"55.0"</span> <span class="attr">width</span>=<span class="string">"105.0"</span> <span class="attr">x</span>=<span class="string">"325.0"</span> <span class="attr">y</span>=<span class="string">"120.0"</span>&gt;</span><span class="tag">&lt;/<span class="name">omgdc:Bounds</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNShape</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmndi:BPMNShape</span> <span class="attr">bpmnElement</span>=<span class="string">"endevent1"</span> <span class="attr">id</span>=<span class="string">"BPMNShape_endevent1"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">omgdc:Bounds</span> <span class="attr">height</span>=<span class="string">"35.0"</span> <span class="attr">width</span>=<span class="string">"35.0"</span> <span class="attr">x</span>=<span class="string">"360.0"</span> <span class="attr">y</span>=<span class="string">"240.0"</span>&gt;</span><span class="tag">&lt;/<span class="name">omgdc:Bounds</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNShape</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmndi:BPMNEdge</span> <span class="attr">bpmnElement</span>=<span class="string">"flow1"</span> <span class="attr">id</span>=<span class="string">"BPMNEdge_flow1"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">omgdi:waypoint</span> <span class="attr">x</span>=<span class="string">"377.0"</span> <span class="attr">y</span>=<span class="string">"55.0"</span>&gt;</span><span class="tag">&lt;/<span class="name">omgdi:waypoint</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">omgdi:waypoint</span> <span class="attr">x</span>=<span class="string">"377.0"</span> <span class="attr">y</span>=<span class="string">"120.0"</span>&gt;</span><span class="tag">&lt;/<span class="name">omgdi:waypoint</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNEdge</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">bpmndi:BPMNEdge</span> <span class="attr">bpmnElement</span>=<span class="string">"flow2"</span> <span class="attr">id</span>=<span class="string">"BPMNEdge_flow2"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">omgdi:waypoint</span> <span class="attr">x</span>=<span class="string">"377.0"</span> <span class="attr">y</span>=<span class="string">"175.0"</span>&gt;</span><span class="tag">&lt;/<span class="name">omgdi:waypoint</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">omgdi:waypoint</span> <span class="attr">x</span>=<span class="string">"377.0"</span> <span class="attr">y</span>=<span class="string">"240.0"</span>&gt;</span><span class="tag">&lt;/<span class="name">omgdi:waypoint</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;/<span class="name">bpmndi:BPMNEdge</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">bpmndi:BPMNPlane</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">bpmndi:BPMNDiagram</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">definitions</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>注意到下面一段，我们成功设置了该用户任务所允许的办理人角色</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">startEvent</span> <span class="attr">id</span>=<span class="string">"startevent1"</span> <span class="attr">name</span>=<span class="string">"Start"</span>&gt;</span><span class="tag">&lt;/<span class="name">startEvent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">userTask</span> <span class="attr">id</span>=<span class="string">"usertask1"</span> <span class="attr">name</span>=<span class="string">"审批"</span> <span class="attr">activiti:candidateGroups</span>=<span class="string">"部门经理"</span>&gt;</span><span class="tag">&lt;/<span class="name">userTask</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">endEvent</span> <span class="attr">id</span>=<span class="string">"endevent1"</span> <span class="attr">name</span>=<span class="string">"End"</span>&gt;</span><span class="tag">&lt;/<span class="name">endEvent</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">sequenceFlow</span> <span class="attr">id</span>=<span class="string">"flow1"</span> <span class="attr">sourceRef</span>=<span class="string">"startevent1"</span> <span class="attr">targetRef</span>=<span class="string">"usertask1"</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <h3 id="使用用户任务组"><a href="#使用用户任务组" class="headerlink" title="使用用户任务组"></a>使用用户任务组</h3><h4 id="部署流程定义"><a href="#部署流程定义" class="headerlink" title="部署流程定义"></a>部署流程定义</h4><p>现在，我们需要部署一个新的流程定义，和以往不同的是，在部署流程定义时，我们还需要创建用户、角色，并建立用户角色之间的关联关系。</p>
@@ -488,7 +490,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/Activiti5入门/" rel="tag"># Activiti5入门</a>
+            <a href="/tags/Activiti5%E5%85%A5%E9%97%A8/" rel="tag"># Activiti5入门</a>
           
         </div>
       
@@ -501,7 +503,7 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/Activiti5入门-组任务分配.html" rel="next" title="Activiti5入门--组任务分配">
+              <a href="/Activiti5%E5%85%A5%E9%97%A8-%E7%BB%84%E4%BB%BB%E5%8A%A1%E5%88%86%E9%85%8D.html" rel="next" title="Activiti5入门--组任务分配">
                 <i class="fa fa-chevron-left"></i> Activiti5入门--组任务分配
               </a>
             
@@ -511,7 +513,7 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/Tomcat与Nginx集群.html" rel="prev" title="Tomcat与Nginx集群">
+              <a href="/Tomcat%E4%B8%8ENginx%E9%9B%86%E7%BE%A4.html" rel="prev" title="Tomcat与Nginx集群">
                 Tomcat与Nginx集群 <i class="fa fa-chevron-right"></i>
               </a>
             
@@ -579,9 +581,11 @@
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
-              <img class="site-author-image" itemprop="image" src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/avatar.jpg" alt="codingShenZx">
+              <img class="site-author-image" itemprop="image"
+                src="https://east-hexo.oss-cn-hangzhou.aliyuncs.com/avatar.jpg"
+                alt="" />
             
-              <p class="site-author-name" itemprop="name">codingShenZx</p>
+              <p class="site-author-name" itemprop="name"></p>
               <p class="site-description motion-element" itemprop="description"></p>
           </div>
 
@@ -590,9 +594,9 @@
             
               <div class="site-state-item site-state-posts">
               
-                <a href="/archives/">
+                <a href="/archives/%7C%7C%20archive">
               
-                  <span class="site-state-item-count">27</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">posts</span>
                 </a>
               </div>
@@ -614,7 +618,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">tags</span>
                 </a>
               </div>
@@ -675,7 +679,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#定义审批流程"><span class="nav-number">1.</span> <span class="nav-text">定义审批流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用用户任务组"><span class="nav-number">2.</span> <span class="nav-text">使用用户任务组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#部署流程定义"><span class="nav-number">2.1.</span> <span class="nav-text">部署流程定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#启动流程实例"><span class="nav-number">2.2.</span> <span class="nav-text">启动流程实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#查询组任务"><span class="nav-number">2.3.</span> <span class="nav-text">查询组任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#拾取任务"><span class="nav-number">2.4.</span> <span class="nav-text">拾取任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#完成任务"><span class="nav-number">2.5.</span> <span class="nav-text">完成任务</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#总结"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E5%AE%A1%E6%89%B9%E6%B5%81%E7%A8%8B"><span class="nav-number">1.</span> <span class="nav-text">定义审批流程</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%94%A8%E6%88%B7%E4%BB%BB%E5%8A%A1%E7%BB%84"><span class="nav-number">2.</span> <span class="nav-text">使用用户任务组</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E6%B5%81%E7%A8%8B%E5%AE%9A%E4%B9%89"><span class="nav-number">2.1.</span> <span class="nav-text">部署流程定义</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%AF%E5%8A%A8%E6%B5%81%E7%A8%8B%E5%AE%9E%E4%BE%8B"><span class="nav-number">2.2.</span> <span class="nav-text">启动流程实例</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%9F%A5%E8%AF%A2%E7%BB%84%E4%BB%BB%E5%8A%A1"><span class="nav-number">2.3.</span> <span class="nav-text">查询组任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8B%BE%E5%8F%96%E4%BB%BB%E5%8A%A1"><span class="nav-number">2.4.</span> <span class="nav-text">拾取任务</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%8C%E6%88%90%E4%BB%BB%E5%8A%A1"><span class="nav-number">2.5.</span> <span class="nav-text">完成任务</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
             
 
           </div>
@@ -695,7 +699,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2019</span>
+        <div class="copyright">&copy; 2017 &mdash; <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
