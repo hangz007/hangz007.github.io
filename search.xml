@@ -1803,6 +1803,9 @@
 </li>
 </ul>
 ]]></content>
+      <categories>
+        <category>Java输入输出</category>
+      </categories>
       <tags>
         <tag>Java IO</tag>
       </tags>
@@ -2823,6 +2826,32 @@
       </categories>
       <tags>
         <tag>log4j</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>递归</title>
+    <url>/%E9%80%92%E5%BD%92.html</url>
+    <content><![CDATA[<h2 id="递归的定义"><a href="#递归的定义" class="headerlink" title="递归的定义"></a>递归的定义</h2><p>指在当前方法中自己调用自己的情况</p>
+<h2 id="递归的分类"><a href="#递归的分类" class="headerlink" title="递归的分类"></a>递归的分类</h2><p>递归分为两种：直接递归和间接递归</p>
+<ul>
+<li>直接递归：方法直接调用自己</li>
+<li>间接递归：A方法调用B方法，B方法调用C方法，C方法调用A方法，这种不直接调用自己的递归，称为间接递归。</li>
+</ul>
+<h2 id="递归的注意事项"><a href="#递归的注意事项" class="headerlink" title="递归的注意事项"></a>递归的注意事项</h2><ul>
+<li>递归一定要有一定的条件限定，保证递归能够停下来，否则会发生栈内存溢出。</li>
+<li>在递归中虽然有限定条件，但是递归的次数不宜过多，否则也会发生栈内存溢出。</li>
+<li>构造方法，要禁止递归。</li>
+</ul>
+<h2 id="递归遍历多级目录"><a href="#递归遍历多级目录" class="headerlink" title="递归遍历多级目录"></a>递归遍历多级目录</h2><p>为了更好理解递归，我们选定目录<code>E:\文档</code>，遍历其子目录及文件。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileListDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        File file = <span class="keyword">new</span> File(<span class="string">&quot;E:\\文档&quot;</span>);</span><br><span class="line">        getAllFiles(file);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">getAllFiles</span><span class="params">(File dir)</span> </span>&#123;</span><br><span class="line">        System.out.println(dir);</span><br><span class="line">        File[] files = dir.listFiles();</span><br><span class="line">        <span class="keyword">for</span> (File file : files) &#123;</span><br><span class="line">            <span class="keyword">if</span> (file.isDirectory()) &#123;</span><br><span class="line">                getAllFiles(file); <span class="comment">//递归调用</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                System.out.println(file);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="递归遍历特定文件搜索"><a href="#递归遍历特定文件搜索" class="headerlink" title="递归遍历特定文件搜索"></a>递归遍历特定文件搜索</h2><p>在这个例子中，我们需要递归搜索以<code>.pdf</code>结尾的文件，因此，我们在<code>else</code>语句中增加判断是否以<code>.pdf</code>结尾的文件，再打印输出。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileListDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        File file = <span class="keyword">new</span> File(<span class="string">&quot;E:\\文档&quot;</span>);</span><br><span class="line">        getAllFiles(file);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">getAllFiles</span><span class="params">(File dir)</span> </span>&#123;</span><br><span class="line">        File[] files = dir.listFiles();</span><br><span class="line">        <span class="keyword">for</span> (File file : files) &#123;</span><br><span class="line">            <span class="keyword">if</span> (file.isDirectory()) &#123;</span><br><span class="line">                getAllFiles(file);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">if</span>(file.getName().endsWith(<span class="string">&quot;.pdf&quot;</span>))&#123;</span><br><span class="line">                    System.out.println(file);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Java输入输出</category>
+      </categories>
+      <tags>
+        <tag>递归</tag>
       </tags>
   </entry>
 </search>
