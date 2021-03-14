@@ -2854,4 +2854,71 @@
         <tag>递归</tag>
       </tags>
   </entry>
+  <entry>
+    <title>文件过滤器</title>
+    <url>/%E6%96%87%E4%BB%B6%E8%BF%87%E6%BB%A4%E5%99%A8.html</url>
+    <content><![CDATA[<p>在<code>File</code>类中有两个和<code>listFiles</code>重载的方法，方法的参数传递的就是过滤器。</p>
+<h2 id="FileFilter过滤器接口"><a href="#FileFilter过滤器接口" class="headerlink" title="FileFilter过滤器接口"></a>FileFilter过滤器接口</h2><p>使用<code>FileFilter</code>过滤器重载的方法为<code>File[] listFiles(FileFilter filter)</code>，过滤器的详情如下：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+<th>参数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>File[] listFiles(FileFilter filter)</code></td>
+<td>它是用于抽象路径名（File对象）的过滤器，主要作用是，<br>用来过滤文件(File对象)</td>
+<td><code>FileFilter</code>接口内部包含一个<code>boolean accept(File pathname)</code>，测试抽象路径名是否包含在某个路径名列表，其参数是使用<code>listFiles</code>方法遍历目录得到的每一个文件对象。</td>
+</tr>
+</tbody></table>
+<p>其中，<code>listFiles</code>方法一共做了两件事：</p>
+<ul>
+<li><code>listFiles</code>方法会对构造方法中传递的目录进行遍历，获取目录中的每一个文件/文件夹，并封装为<code>File</code>对象。</li>
+<li><code>listFiles</code>方法会调用参数传递的过滤器中的方法<code>accept</code>。</li>
+<li><code>listFiles</code>方法会把遍历得到的每一个<code>File</code>对象，传递给<code>accept</code>方法的参数<code>pathname</code>。</li>
+</ul>
+<p>当<code>accept</code>方法返回true时，<code>listFiles</code>方法就将该<code>File</code>对象添加到返参的<code>File</code>数组里。否则，不添加到返参的<code>File</code>数组里。</p>
+<h2 id="FilenameFilter过滤器接口"><a href="#FilenameFilter过滤器接口" class="headerlink" title="FilenameFilter过滤器接口"></a>FilenameFilter过滤器接口</h2><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>作用</th>
+<th>参数</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>File[] listFiles(FilenameFilter filter)</code></td>
+<td>它的作用是用于过滤文件名</td>
+<td>其内部包含<code>boolean accept(File dir,String name)</code> 测试指定文件是否包含在某一文件列表中，<code>File dir</code>是构造方法中传递的被遍历的目录，<code>String name</code>是使用<code>istFiles</code>方法遍历目录获取的每一个文件/文件夹名称</td>
+</tr>
+</tbody></table>
+<p>注意：两个过滤器接口都没有实现类，需要自行编写实现类，重写过滤的方法<code>accept</code>，在方法中自己定义过滤的规则。</p>
+<h2 id="使用FileFiter过滤器重写文件搜索"><a href="#使用FileFiter过滤器重写文件搜索" class="headerlink" title="使用FileFiter过滤器重写文件搜索"></a>使用FileFiter过滤器重写文件搜索</h2><p>首先，我们需要实现<code>FileFilter</code>接口，重写其<code>accept</code>方法。在这个过滤方法中，对于目录我们直接返回true，让其在下一段代码中继续遍历其中的文件，对于文件，则判断是否是以<code>.pdf</code>结尾。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileFilter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileFilterImpl</span> <span class="keyword">implements</span> <span class="title">FileFilter</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">accept</span><span class="params">(File pathname)</span> </span>&#123;</span><br><span class="line">        <span class="comment">// 如果pathname是一个文件夹，则返回true，继续遍历文件夹</span></span><br><span class="line">        <span class="keyword">if</span>(pathname.isDirectory()) &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">true</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pathname.getName().toLowerCase().endsWith(<span class="string">&quot;.pdf&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>接着，我们将<code>FileFilterImpl</code>实现类作为参数传递给<code>listFiles</code>方法。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FileFiterDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        File file = <span class="keyword">new</span> File(<span class="string">&quot;E:\\文档&quot;</span>);</span><br><span class="line">        getAllFiles(file);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">getAllFiles</span><span class="params">(File dir)</span> </span>&#123;</span><br><span class="line">        File[] files = dir.listFiles(<span class="keyword">new</span> FileFilterImpl());</span><br><span class="line">        <span class="keyword">for</span> (File file : files) &#123;</span><br><span class="line">            <span class="keyword">if</span> (file.isDirectory()) &#123;</span><br><span class="line">                getAllFiles(file);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                System.out.println(file);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>运行程序，我们成功搜索出<code>.pdf</code>结尾的文件。</p>
+<h2 id="使用FilenameFilter过滤器重写文件搜索"><a href="#使用FilenameFilter过滤器重写文件搜索" class="headerlink" title="使用FilenameFilter过滤器重写文件搜索"></a>使用FilenameFilter过滤器重写文件搜索</h2><p>下面，我们继续使用<code>FilenameFilter</code>来完成文件搜索功能。这次，我们使用匿名内部类，逻辑和刚才一致。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FilenameFilter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FilenameFilterDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        File file = <span class="keyword">new</span> File(<span class="string">&quot;E:\\文档&quot;</span>);</span><br><span class="line">        getAllFiles(file);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">getAllFiles</span><span class="params">(File dir)</span> </span>&#123;</span><br><span class="line">        File[] files = dir.listFiles(<span class="keyword">new</span> FilenameFilter() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">accept</span><span class="params">(File dir, String name)</span> </span>&#123;</span><br><span class="line">                <span class="comment">// 判断其是否是文件夹或者其是否以.pdf结尾</span></span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> File(dir, name).isDirectory() || name.toLowerCase().endsWith(<span class="string">&quot;.pdf&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="keyword">for</span> (File file : files) &#123;</span><br><span class="line">            <span class="keyword">if</span> (file.isDirectory()) &#123;</span><br><span class="line">                getAllFiles(file);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                System.out.println(file);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>类似地，可以使用匿名内部类代替原有的<code>FileFilter</code>实现方法。</p>
+<h2 id="使用Lambda表达式实现文件搜索"><a href="#使用Lambda表达式实现文件搜索" class="headerlink" title="使用Lambda表达式实现文件搜索"></a>使用Lambda表达式实现文件搜索</h2><p>在JDK8中，我们可以使用Lambda表达式简化代码，将上面代码中的这段代码</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">File[] files = dir.listFiles(<span class="keyword">new</span> FilenameFilter() &#123;</span><br><span class="line">            <span class="meta">@Override</span></span><br><span class="line">            <span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">accept</span><span class="params">(File dir, String name)</span> </span>&#123;</span><br><span class="line">                <span class="comment">// 判断其是否是文件夹或者其是否以.pdf结尾</span></span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> File(dir, name).isDirectory() || name.toLowerCase().endsWith(<span class="string">&quot;.pdf&quot;</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;);</span><br></pre></td></tr></table></figure>
+
+<p>简化为：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">File[] files = dir.listFiles((d,name)-&gt; <span class="keyword">new</span> File(d,name).isDirectory() || name.toLowerCase().endsWith(<span class="string">&quot;.pdf&quot;</span>));</span><br></pre></td></tr></table></figure>
+
+<p>其完整实现如下：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FilenameFilter;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FilenameFilterLDemo</span> </span>&#123;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        File file = <span class="keyword">new</span> File(<span class="string">&quot;E:\\文档&quot;</span>);</span><br><span class="line">        getAllFiles(file);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">getAllFiles</span><span class="params">(File dir)</span> </span>&#123;</span><br><span class="line">        File[] files = dir.listFiles((d,name)-&gt; <span class="keyword">new</span> File(d,name).isDirectory() || name.toLowerCase().endsWith(<span class="string">&quot;.pdf&quot;</span>));</span><br><span class="line">        <span class="keyword">for</span> (File file : files) &#123;</span><br><span class="line">            <span class="keyword">if</span> (file.isDirectory()) &#123;</span><br><span class="line">                getAllFiles(file);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                System.out.println(file);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>]]></content>
+      <categories>
+        <category>Java输入输出</category>
+      </categories>
+      <tags>
+        <tag>文件过滤器</tag>
+      </tags>
+  </entry>
 </search>
